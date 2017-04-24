@@ -12,7 +12,6 @@ import axios from 'axios';
 // import VueAxios from 'vue-axios';
 import './style/common.scss'
 
-Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(VueRouter);
 // Vue.use(VueAxios, axios)

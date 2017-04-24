@@ -26,12 +26,12 @@ Vue.use(Router)
 })
 
 router.beforeEach(({ meta, path }, from, next) => {
-  const { auth = true } = meta
-  const isLogin = Boolean(localStorage.getItem("eshine_channel")) // true用户已登录， false用户未登录
-  if (auth && !isLogin && path !== '/login') {
-    let to = { path: '/login' }
-    return next(to)
-  }
+  // const { auth = true } = meta
+  // const isLogin = Boolean(localStorage.getItem("eshine_channel")) // true用户已登录， false用户未登录
+  // if (auth && !isLogin && path !== '/login') {
+  //   let to = { path: '/login' }
+  //   return next(to)
+  // }
   next()
 })
 
