@@ -1,21 +1,32 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 // import Hello from '@/components/Hello'
-import Login from '@/components/Login'
-import register from '@/components/register'
-import list from '@/components/list'
+import Login from '@/pages/login'
+import register from '@/pages/register'
+import list from '@/pages/users/list'
+import detail from '@/pages/users/detail'
+import main from '@/pages/main'
+
 Vue.use(Router)
 
  var router =  new Router({
   routes: [
     {
       path: '/',
-      name: 'list',
-      component: list,
+      name: 'users',
+      component: main,
       children:[
         {
           path: '/list/login',
           component: Login
+        },
+        {
+          path: '/users/list',
+          component: list
+        },
+        {
+          path: '/users/detail',
+          component: detail
         }
       ]
     },
