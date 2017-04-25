@@ -25,6 +25,17 @@ npm run e2e
 
 # run all tests
 npm test
+
+#改变颜色主题
+1.cnpm install
+
+2.cnpm i element-theme -g
+
+3.如果没有element-variables.css,则 et -i 
+
+4.如果有element-variables.css，则需要生成theme，则执行 et -w
+
+
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
