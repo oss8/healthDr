@@ -9,8 +9,7 @@
                 <el-menu-item index="2"><i class="el-icon-message"></i>通知</el-menu-item>
                 <el-menu-item index="3"><i class="el-icon-setting"></i>设置</el-menu-item>
             </el-menu>
-            <router-view></router-view>
-       
+            <router-view class="second-router"></router-view>
     </div>
 </template>
 <script>
@@ -26,16 +25,26 @@
             }
         },
         methods:{
+        },
+        mounted () {
+            this.$router.replace('/list/login');
         }
     }
 </script>
 <style lang="scss">
     .doctor {
         height:100%;
+        .second-router {
+            display:inline-block;
+            // width:50%;
+            width:calc(100% - 100px);
+        }
         .main-menu {
+            
             width:100px;
             height:100%;
             background-color:#12375C;
+            float:left;
             .el-menu-item  {
                 min-height:56px;
               &.profile{

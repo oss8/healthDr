@@ -11,8 +11,15 @@ Vue.use(Router)
     {
       path: '/',
       name: 'list',
-      component: list
+      component: list,
+      children:[
+        {
+          path: '/list/login',
+          component: Login
+        }
+      ]
     },
+    
     {
       path: '/login',
       name: 'login',
