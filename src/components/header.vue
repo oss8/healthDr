@@ -1,13 +1,13 @@
 <template>
     <div class="header">
-        <div class="logo"></div>
+        <div></div>
         <div class="login">您好<span class="userName">{{name}}</span><el-button type="text" @click="exit()">退出</el-button></div>
     </div>
 </template>
 
 
 <style lang="scss">
-     @import "../style/common.scss";
+    //  @import "../style/common.scss";
 </style>
 <script>
     export  default {

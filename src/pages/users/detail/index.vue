@@ -4,7 +4,6 @@
     </div>
 </template>
 <script>
-
     import util from '../../../util'
     import is from 'is'
     var userInfo = {};
@@ -18,7 +17,7 @@
         methods:{
         },
         mounted () {
-            this.$router.replace('/detail');
+
         }
     }
 </script>
