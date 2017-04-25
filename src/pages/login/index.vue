@@ -21,7 +21,7 @@
     </div>
 </template>
 <script>
-import util from '../../util'
+import util from '@/util'
 
     export default {
         data () {
@@ -85,9 +85,9 @@ import util from '../../util'
                     this.axios.post('OssBrandAPIs/BetaUserLogin',params)
                     .then((data) => {
                         if(data.status == 1) {
-                            localStorage.setItem("eshine_channel",params.BetaUserLogin.mobile)
+                            localStorage.setItem("health.Dr",params.BetaUserLogin.mobile)
                             this.$router.replace({
-                                name: 'list'
+                                name: 'main'
                             })
                         } else {
                             this.$message({

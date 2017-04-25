@@ -27,7 +27,14 @@
         methods:{
         },
         mounted () {
-            this.$router.replace('/list/login');
+            userInfo.userid = localStorage.getItem("health.Dr");
+            // console.log(userid);
+            if(!util.checkPhone(userInfo.userid)) {
+                this.$router.replace({
+                                name: 'login'
+                        })
+            }
+            this.$router.replace('/users/list')
         }
     }
 </script>

@@ -13,7 +13,7 @@ Vue.use(Router)
   routes: [
     {
       path: '/',
-      name: 'users',
+      name: 'main',
       component: main,
       children:[
         {
