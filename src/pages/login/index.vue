@@ -125,12 +125,4 @@ import util from '../../util'
     }
 </script>
 <style lang="scss">
-    .logo{
-        width: 120px;
-        height: 120px;
-        background-image: url(../../assets/logo.jpg);
-        background-repeat: no-repeat;
-        background-size: 100%;
-        margin: 0 auto 30px;
-    }
 </style>

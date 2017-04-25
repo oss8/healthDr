@@ -12,7 +12,8 @@ import router from './router'
 import ElementUI from 'element-ui'
 import axios from 'axios';
 // import VueAxios from 'vue-axios';
-import './style/common.scss'
+// import './style/common.scss'
+
 Vue.use(ElementUI)
 Vue.use(VueRouter);
 // Vue.use(VueAxios, axios)
