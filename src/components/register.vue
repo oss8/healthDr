@@ -7,10 +7,19 @@
                     <el-input type="tel" placeholder="手机号码" v-model="mobile" name="mobile" @change="mobileChange(mobile)" ></el-input>
                 </el-form-item>
                 <el-form-item class="form-item">
+                    <el-input type="text" placeholder="姓名" v-model="name" name="name" ></el-input>
+                </el-form-item>
+                <el-form-item class="form-item">
+                    <div class="input-box"><input type="tel" placeholder="验证码" v-model="code"  maxlength="6"><span class="input-btn-box"><el-button type="button" class="btn btn-send" :disabled="smsBtnDisabled" @click="sendSmsClick()">{{smsText}}</el-button></span></div>
+                </el-form-item>
+                <el-form-item class="form-item">
                     <el-input type="password" placeholder="密码" v-model="code"></el-input>
                 </el-form-item>
                 <el-form-item class="form-item">
-                    <el-button type="primary" size="large" class="btn-block" @click="login()">登录</el-button>
+                    <el-input type="password" placeholder="确认密码" v-model="code"></el-input>
+                </el-form-item>
+                <el-form-item class="form-item">
+                    <el-button type="primary" size="large" class="btn-block" @click="register()">注册</el-button>
                 </el-form-item>
             </el-form>
             
@@ -125,4 +134,5 @@ import util from '../util'
     }
 </script>
 <style lang="scss">
+    @import "../style/login.scss";
 </style>

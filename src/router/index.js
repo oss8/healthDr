@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // import Hello from '@/components/Hello'
 import Login from '@/components/Login'
+import register from '@/components/register'
 import list from '@/components/list'
 Vue.use(Router)
 
@@ -16,6 +17,11 @@ Vue.use(Router)
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: register
     },
     {
       path: '*',
