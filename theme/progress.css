@@ -116,7 +116,7 @@
 
 .el-progress__text{
   font-size:14px;
-  color:rgb(72, 106, 92);
+  color:rgb(72, 84, 106);
   display: inline-block;
   vertical-align: middle;
   margin-left: 10px;
@@ -174,7 +174,7 @@
 .el-progress-bar__outer{
   height: 6px;
   border-radius: 100px;
-  background-color:rgb(228, 241, 237);
+  background-color:rgb(228, 231, 241);
   overflow: hidden;
   position: relative;
   vertical-align: middle;
@@ -186,7 +186,7 @@
   top: 0;
   height: 100%;
   border-radius: 2px 0 0 2px;
-  background-color:#13ce66;
+  background-color:#4DA1FF;
   text-align: right;
   border-radius: 100px;
   line-height: 1;
