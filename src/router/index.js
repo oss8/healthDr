@@ -16,10 +16,10 @@ Vue.use(Router)
       name: 'users',
       component: main,
       children:[
-        {
-          path: '/list/login',
-          component: Login
-        },
+        // {
+        //   path: '/list/login',
+        //   component: Login
+        // },
         {
           path: '/users/list',
           component: list

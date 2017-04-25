@@ -18,7 +18,7 @@
         methods:{
         },
         mounted () {
-            this.$router.replace('/list/login');
+            this.$router.replace('/detail');
         }
     }
 </script>
