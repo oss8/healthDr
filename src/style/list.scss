@@ -19,15 +19,9 @@
             min-width: 280px;
         }
         .info-box{
-            // width: 260px;
             min-height: 260px;
-            border: none;
-            border-radius: 0px;
         }
         .visit{
-            td{
-                padding: 10px 5px;
-            }
             .key-red{
                 font-size: 18px;
                 color: #E23E2C;
@@ -35,61 +29,63 @@
         }
         
     }
-    .personal-data{
-        position: relative;
-
-        dl{
-            padding-bottom: 20px;
-            padding-left: 90px;
-            padding-top: 15px;
-            .name{
-                font-size: 18px;
-            }
-            .sex{
-                padding-right: 15px;
+}
+// 个人信息
+.personal-data{
+    position: relative;
+    dl{
+        padding-bottom:15px;
+        padding-left: 90px;
+        padding-top: 5px;
+    }
+    dt{
+        float: left;
+        margin-left: -90px;
+        margin-top: 5px;
+    }
+    dd{
+        p{
+            padding-bottom: 3px;
+        }
+        span{
+            padding-right:15px;
+        }
+    }
+    .name{
+        font-size: 18px;
+        vertical-align: middle;
+    }
+    .tag{
+        font-size: 12px;
+        color: #FFFFFF;
+        padding:0 4px;
+        display: inline-block;
+        vertical-align: middle;
+        &.tag-high{
+            background: #F5A623;
+        }
+    }
+    .doct-dropdown{
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        cursor: pointer;
+        text-align: center;
+        .el-button--text{
+            padding:6px;
+            border:1px solid rgba(208,215,221,0);
+            color: rgba(208,215,221,0.73);
+            font-size: 18px;
+            &:hover{
+                color: #4990E2;
+                border:1px solid #4990E2;
             }
         }
-        dt{
-            float: left;
-            margin-left: -90px;
-        }
-        .icon-user{
-            width: 68px;
-            height: 68px;
-            border-radius: 50%;
-            img{
-                width: 100%;
-                border-radius: 50%;
-            }
-        }
-        .tags{
-            .tag{
-                font-size: 12px;
-                color: #FFFFFF;
-                padding:0 4px;
-                display: inline-block;
-            }
-            .tag-high{
-                background: #F5A623;
-            }
-        }           
-        .doct-dropdown{
-            position: absolute;
-            right: 0px;
-            top: 10px;
-            cursor: pointer;
-            text-align: center;
-            .el-button--text{
-                padding:6px;
-                border:1px solid rgba(208,215,221,0);
-                color: rgba(208,215,221,0.73);
-                font-size: 18px;
-                &:hover{
-                    color: #4990E2;
-                    border:1px solid #4990E2;
-                }
-            }
-        }
+    }
+    .doct-button{
+        position: absolute;
+        right: 20px;
+        top: 20px;
     }
 }
 // 添加新人
