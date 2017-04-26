@@ -1,7 +1,7 @@
 <template>
     <div class="loginWrap">
         <div class="login">
-            <div class="logo"></div>
+            <i class="icon logo"></i>
             <el-form class="login-form">
                 <el-form-item class="form-item">
                     <el-input type="tel" placeholder="手机号码" v-model="mobile" name="mobile" @change="mobileChange(mobile)" ></el-input>
