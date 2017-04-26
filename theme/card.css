@@ -89,7 +89,7 @@
 }
 
 .el-card{
-    border: 1px solid rgb(209, 217, 229);
+    border: 1px solid rgb(209, 219, 229);
     border-radius: 4px;
     background-color: #fff;
     overflow: hidden;
@@ -99,7 +99,7 @@
 
 .el-card__header{
     padding: 18px 20px;
-    border-bottom: 1px solid rgb(209, 217, 229);
+    border-bottom: 1px solid rgb(209, 219, 229);
     box-sizing: border-box
 }
 
@@ -111,6 +111,7 @@
   -------------------------- */
     /* Colors
   -------------------------- */
+    /*--color-base-black: color(var(--color-primary) h(+6) s(33%) l(18%));*/
     /* Link
   -------------------------- */
     /* Border

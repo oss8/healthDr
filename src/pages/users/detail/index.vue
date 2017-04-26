@@ -22,5 +22,4 @@
     }
 </script>
 <style lang="scss">
-    @import "../../../style/list.scss";
 </style>

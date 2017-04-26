@@ -1,0 +1,94 @@
+.patient{
+    .title{
+        height: 88px;
+        padding: 30px 30px 10px;
+        h2{
+            font-size: 24px;
+            line-height: 36px;
+            padding-right: 30px;
+            display: inline-block;
+            vertical-align: top;
+        }
+    }
+    //列表
+    .list{
+        padding: 0 15px;
+        .el-col{
+            padding:10px 15px;
+            display: inline;
+            min-width: 260px;
+        }
+        .info-box{
+            // width: 260px;
+            min-height: 260px;
+            border: none;
+            border-radius: 0px;
+        }
+        .visit{
+            td{
+                padding: 10px 5px;
+            }
+            .key-red{
+                font-size: 18px;
+                color: #E23E2C;
+            }
+        }
+        
+    }
+    .personal-data{
+        position: relative;
+
+        dl{
+            padding-bottom: 20px;
+            padding-left: 90px;
+            padding-top: 15px;
+            .name{
+                font-size: 18px;
+            }
+            .sex{
+                padding-right: 15px;
+            }
+        }
+        dt{
+            float: left;
+            margin-left: -90px;
+        }
+        .icon-user{
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            img{
+                width: 100%;
+                border-radius: 50%;
+            }
+        }
+        .tags{
+            .tag{
+                font-size: 12px;
+                color: #FFFFFF;
+                padding:0 4px;
+                display: inline-block;
+            }
+            .tag-high{
+                background: #F5A623;
+            }
+        }           
+        .doct-dropdown{
+            position: absolute;
+            right: 0px;
+            top: 10px;
+            cursor: pointer;
+            text-align: center;
+            .el-button--text{
+                padding:6px;
+                border:1px solid rgba(208,215,221,0);
+                color: rgba(208,215,221,0.73);
+                font-size: 18px;
+                &:hover{
+                    color: #4990E2;
+                    border:1px solid #4990E2;
+                }
+            }
+        }
+    }
+}

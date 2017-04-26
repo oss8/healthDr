@@ -136,13 +136,31 @@ input{
     background-size: 100%;
     vertical-align: middle;
 }
+.el-dropdown-menu{
+    min-width: 160px;
+}
 // 表格
+table {
+    width: 100%;
+    border-collapse: collapse;     
+    background: #FFFFFF;
+    border: 1px solid #E9EFF4;
+}    
+th {  
+    text-align: left;  
+    border: 1px solid #E9EFF4;
+    padding:5px 10px;  
+}  
+td {  
+    border: 1px solid #E9EFF4;
+    padding:5px 10px;  
+}  
 
 //头部
 .header{
     height: 56px;
-    border-bottom:1px solid rgba(239,240,243,0.40);
-    padding: 10px 20px 0;
+    border-bottom:1px solid #E7E9EA;
+    padding: 10px 30px 0;
     .login{
         float: right;
         .userName{
@@ -150,13 +168,15 @@ input{
         }
     }
 }
-//左侧菜单
+//框架
 .doctor {
     height:100%;
     padding-left:100px;
     .main-wrap{
         width:100%;
+        background-color: #fafafa;
     }
+    //左侧菜单
     .doctor-menu {
         width:100px;
         height:100%;
