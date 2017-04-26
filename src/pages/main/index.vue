@@ -44,7 +44,7 @@
             //                     name: 'login'
             //             })
             // }
-            this.$router.replace('/users/list')
+            this.$router.replace('/users/detail')
         }
     }
 </script>

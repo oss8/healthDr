@@ -16,6 +16,7 @@
                     <el-button type="primary">新建随访记录</el-button>
                 </div>
             </el-card>
+            <formList></formList>
             <el-card :body-style="{ padding: '15px' }">
                 <h2>高血压高危人群随访服务记录</h2>
                 <div class="mod-info">
@@ -116,11 +117,15 @@
     </div>
 </template>
 <script>
+    import formList from '@/pages/users/detail/formList.vue';
     import util from '../../../util'
     import is from 'is'
     var userInfo = {};
     // var dataSource = [];
     export default {
+        components:{
+            formList
+        },
         data () {
             return {
 
