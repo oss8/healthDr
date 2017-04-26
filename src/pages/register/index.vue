@@ -10,13 +10,13 @@
                     <el-input type="text" placeholder="姓名" v-model="name" name="name" ></el-input>
                 </el-form-item>
                 <el-form-item class="form-item">
-                    <div class="input-box"><input type="tel" placeholder="验证码" v-model="code"  maxlength="6"><span class="input-btn-box"><el-button type="button" class="btn btn-send" :disabled="smsBtnDisabled" @click="sendSmsClick()">{{smsText}}</el-button></span></div>
+                    <div class="input-box"><input type="tel" placeholder="验证码" v-model="randCode"  maxlength=6><span class="input-btn-box"><el-button type="button" class="btn btn-send" :disabled="smsBtnDisabled" @click="sendSmsClick()">{{smsText}}</el-button></span></div>
                 </el-form-item>
                 <el-form-item class="form-item">
-                    <el-input type="password" placeholder="密码" v-model="code"></el-input>
+                    <el-input type="password" placeholder="密码" v-model="password"  ></el-input>
                 </el-form-item>
                 <el-form-item class="form-item">
-                    <el-input type="password" placeholder="确认密码" v-model="code"></el-input>
+                    <el-input type="password" placeholder="确认密码" v-model="confimPassword"  ></el-input>
                 </el-form-item>
                 <el-form-item class="form-item">
                     <el-button type="primary" size="large" class="btn-block" @click="register()">注册</el-button>
@@ -31,12 +31,15 @@
 </template>
 <script>
 import util from '../../util'
-
+import md5 from 'md5'
     export default {
         data () {
             return {
                 mobile:'',
-                code:'',
+                name:'',
+                randCode:'',
+                password:'',
+                confimPassword:'',
                 smsBtnDisabled:true,
                 smsText:'短信获取验证码'
             }
@@ -49,7 +52,7 @@ import util from '../../util'
                
                 let _this = this;
                 if(validateInput.call(this,0)){
-                    this.axios.post('OssBrandAPIs/BetaUserSendSMS',{BetaUserSendSMS:{mobile:this.mobile}})
+                    this.axios.post('Doctors/DoctorGetRandCode',{DoctorGetRandCode:{mobile:this.mobile}})
                     .then((data) => {
                         if (data.status == 1) {
                             util.toast('发送成功');
@@ -88,15 +91,16 @@ import util from '../../util'
                     })
                 }
             },
-            login() {
+            register() {
                 if(validateInput.call(this,1)){
-                    var params = {BetaUserLogin:{mobile:this.mobile,password:this.code}};
-                    this.axios.post('OssBrandAPIs/BetaUserLogin',params)
+                    
+                    var params = {AddDoctor:{mobile:this.mobile,password:md5(this.password),randcode:this.randCode}};
+                    this.axios.post('Doctors/AddDoctor',params)
                     .then((data) => {
                         if(data.status == 1) {
-                            localStorage.setItem("eshine_channel",params.BetaUserLogin.mobile)
+                            localStorage.setItem(util.localKey.login,params.AddDoctor.mobile)
                             this.$router.replace({
-                                name: 'list'
+                                path: '/users/list'
                             })
                         } else {
                             this.$message({
@@ -111,6 +115,8 @@ import util from '../../util'
                 console.log(mobile);
                if(util.checkPhone(mobile)) {
                    this.smsBtnDisabled = false;
+               } else {
+                   this.smsBtnDisabled = true;
                }
             }
         }
@@ -123,13 +129,23 @@ import util from '../../util'
                     });
                     return false;
             }
-         if(type ==1 && this.code.length == 0) {
-            this.$message({
-                        message:'请填写验证码',
+         if(type ==1) {
+             if(this.randCode.length == 0 || this.password.length == 0 || this.name.length == 0) {
+                this.$message({
+                        message:'请补全信息',
                         type: 'error'
                     });
                     return false;
-        }
+             } else if(this.password !== this.confimPassword) {
+                this.$message({
+                        message:'两次密码不一致哦',
+                        type: 'error'
+                    });
+                    return false;
+             }
+            
+        } 
+        
         return true;
     }
 </script>

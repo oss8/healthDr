@@ -22,7 +22,7 @@
 </template>
 <script>
 import util from '@/util'
-
+import md5 from 'md5'
     export default {
         data () {
             return {
@@ -33,59 +33,13 @@ import util from '@/util'
             }
         },
         methods:{
-            sendSmsClick() {
-                
-                this.smsBtnDisabled = true;
-                this.smsText = "正在发送...";
-               
-                let _this = this;
-                if(validateInput.call(this,0)){
-                    this.axios.post('OssBrandAPIs/BetaUserSendSMS',{BetaUserSendSMS:{mobile:this.mobile}})
-                    .then((data) => {
-                        if (data.status == 1) {
-                            util.toast('发送成功');
-                            (function(me){
-                                let time = 60
-                                var  timer = setInterval(function(){
-                                    if(time === 0) {
-                                        me.smsBtnDisabled = false;
-                                        me.smsText = '再次获取验证码';
-                                        time = 59;
-                                        clearInterval(timer);
-                                    } else {
-                                        time --;
-                                        me.smsText = time + '秒';
-                                    }
-                                    
-                                },1000);
-                            })(_this)
-                        } else {
-                            _this.smsBtnDisabled = false;
-                            _this.smsText = '短信获取验证码';
-                            this.$message({
-                                message:data.result,
-                                type: 'error'
-                            });
-                        }
-                        
-                    })
-                    .catch((err) => {
-                        _this.smsBtnDisabled = false;
-                        _this.smsText = '短信获取验证码';
-                        this.$message({
-                                message:'发送失败',
-                                type: 'error'
-                            });
-                    })
-                }
-            },
             login() {
                 if(validateInput.call(this,1)){
-                    var params = {BetaUserLogin:{mobile:this.mobile,password:this.code}};
-                    this.axios.post('OssBrandAPIs/BetaUserLogin',params)
+                    var params = {DoctorLogin:{mobile:this.mobile,password:this.code}};
+                    this.axios.post('Doctors/DoctorLogin',params)
                     .then((data) => {
                         if(data.status == 1) {
-                            localStorage.setItem("health.Dr",params.BetaUserLogin.mobile)
+                            localStorage.setItem(util.localKey.login,params.DoctorLogin.mobile)
                             this.$router.replace({
                                 name: 'main'
                             })
