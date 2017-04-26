@@ -3,7 +3,7 @@
     <el-row class="title">
         <el-col :span="24">
             <div class="grid-content">
-                <h2>高危疾病监控</h2><el-button><i class="el-icon-plus"></i> 新建随访人</el-button>
+                <h2>高危疾病监控</h2><el-button @click="dialogFormVisible = true"><i class="el-icon-plus"></i> 新建随访人</el-button>
             </div>
         </el-col>
     </el-row>
@@ -39,26 +39,32 @@
             </el-card>
         </el-col>
     </el-row>
+    <dtdialog :model="dialogFormVisible"></dtdialog>
+
 </div>
+
 </template>
 <style lang="scss">
     @import "../../../style/list.scss";
 </style>
 <script>
+    import dtdialog from './addDialog.vue'
     import util from '../../../util'
     import is from 'is'
     var userInfo = {};
     export default {
-      
+      components:{
+            dtdialog
+        },
         data () {
             return {
-
+                dialogFormVisible:true
             }
         },
         methods:{
         },
         mounted () {
-
+            console.log(dtdialog);
         }
     }
 </script>

@@ -108,17 +108,20 @@ input{
     padding: 3px 8px;
 }
 #app {
-  font-family: 'PingFangSC-Light', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-//   text-align: center;
-  color: #666;
-  height: 100%;
-  min-height: 600px;
+    font-family: 'PingFangSC-Light', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #666;
+    height: 100%;
+    min-height: 100%;
 }
 // 底部
 .footer{
-    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    min-width: 300px;
     padding: 10px;
     color: #5E6977;
     text-align: center;
@@ -159,6 +162,7 @@ td {
 //头部
 .header{
     height: 56px;
+    background-color: #FFFFFF;
     border-bottom:1px solid #E7E9EA;
     padding: 10px 30px 0;
     .login{
@@ -170,21 +174,30 @@ td {
 }
 //框架
 .doctor {
-    height:100%;
+    min-width: 1000px;
+    min-height:100%;
     padding-left:100px;
+    padding-bottom: 70px;
+    position: relative;
+    background-color: #fafafa;
+    .footer{
+        left: 100px;
+    }
+    .docter-main{
+        
+    }
     .main-wrap{
         width:100%;
-        background-color: #fafafa;
     }
     //左侧菜单
     .doctor-menu {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
         width:100px;
-        height:100%;
         background-color:#12375C;
-        float:left;
-        margin-left:-100px;
         .el-menu-item  {
-            // color: #fff;
             &.profile{
                 height:130px;
                 padding-top:35px;
