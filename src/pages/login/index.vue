@@ -15,8 +15,8 @@
             </el-form>
             
         </div>
-        <div class="footer">
-        ©2016-2017 杭州当堂信息技术有限公司 | 版权所有<br>浙ICP备15007132号-1
+        <div class="footer" >
+        ©2016-2017 杭州阿里巴巴技术有限公司 | 版权所有<br>浙ICP备15007132号-1
         </div>
     </div>
 </template>
@@ -35,11 +35,11 @@ import md5 from 'md5'
         methods:{
             login() {
                 if(validateInput.call(this,1)){
-                    var params = {DoctorLogin:{mobile:this.mobile,password:this.code}};
+                    var params = {DoctorLogin:{mobile:this.mobile,password:md5(this.code)}};
                     this.axios.post('Doctors/DoctorLogin',params)
                     .then((data) => {
                         if(data.status == 1) {
-                            localStorage.setItem(util.localKey.login,params.DoctorLogin.mobile)
+                            localStorage.setItem(util.localKey.login,JSON.stringify(data.result))
                             this.$router.replace({
                                 name: 'main'
                             })
@@ -70,7 +70,7 @@ import md5 from 'md5'
             }
          if(type ==1 && this.code.length == 0) {
             this.$message({
-                        message:'请填写验证码',
+                        message:'请输入密码',
                         type: 'error'
                     });
                     return false;

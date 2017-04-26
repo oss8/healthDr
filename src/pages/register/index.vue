@@ -24,7 +24,7 @@
             </el-form>
             
         </div>
-        <div class="footer">
+        <div class="footer" >
         ©2016-2017 杭州当堂信息技术有限公司 | 版权所有<br>浙ICP备15007132号-1
         </div>
     </div>
@@ -98,7 +98,7 @@ import md5 from 'md5'
                     this.axios.post('Doctors/AddDoctor',params)
                     .then((data) => {
                         if(data.status == 1) {
-                            localStorage.setItem(util.localKey.login,params.AddDoctor.mobile)
+                            localStorage.setItem(util.localKey.login,data.result.DoctorInfo.id)
                             this.$router.replace({
                                 path: '/users/list'
                             })

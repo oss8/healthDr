@@ -17,7 +17,7 @@
 </template>
 <script>
     import dtHeader from '@/components/Header.vue';
-    import util from '../../util'
+    import util from '@/util'
     import is from 'is'
     var userInfo = {};
     // var dataSource = [];
@@ -33,13 +33,13 @@
         methods:{
         },
         mounted () {
-            userInfo.userid = localStorage.getItem("health.Dr");
-            // console.log(userid);
-            if(!util.checkPhone(userInfo.userid)) {
-                this.$router.replace({
-                                name: 'login'
-                        })
-            }
+            // userInfo = JSON.parse(localStorage.getItem(util.localKey.login)) ;
+            // console.log(userInfo);
+            // if(userInfo.id.length == 0) {
+            //     this.$router.replace({
+            //                     name: 'login'
+            //             })
+            // }
             this.$router.replace('/users/list')
         }
     }
