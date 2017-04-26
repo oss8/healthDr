@@ -116,32 +116,76 @@ input{
   height: 100%;
   min-height: 600px;
 }
+// 底部
 .footer{
     width: 100%;
     padding: 10px;
     color: #5E6977;
     text-align: center;
 }
-
 //按钮
 .btn-block{
     display: block!important;
     width: 100%;
-} 
-.el-button--primary{
-    background-color: #4DA1FF;
-    border-color: #4DA1FF;
+}
+// base
+.icon{
+    overflow: hidden;
+    display:inline-block;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    vertical-align: middle;
 }
 // 表格
+
 //头部
 .header{
-    height: 50px;
+    height: 56px;
     border-bottom:1px solid rgba(239,240,243,0.40);
     padding: 10px 20px 0;
     .login{
         float: right;
         .userName{
             padding: 0 10px;
+        }
+    }
+}
+//左侧菜单
+.doctor {
+    height:100%;
+    padding-left:100px;
+    .main-wrap{
+        width:100%;
+    }
+    .doctor-menu {
+        width:100px;
+        height:100%;
+        background-color:#12375C;
+        float:left;
+        margin-left:-100px;
+        .el-menu-item  {
+            // color: #fff;
+            &.profile{
+                height:130px;
+                padding-top:35px;
+                text-align:center;
+                span {
+                    display:block;
+                    height:20px;
+                    line-height: 20px;
+                    color: #fff;
+                }
+            }
+            &.is-active{
+                padding: 0 10px;
+                border-left: 3px solid #4192EC;
+            }  
+        }
+        .logo {
+            width:50px;
+            height:50px;
+            background-image: url(assets/logo.svg);
+            vertical-align: top;  
         }
     }
 }
