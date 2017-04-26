@@ -94,7 +94,7 @@
 }
 
 .el-radio-button:first-child .el-radio-button__inner{
-    border-left: 1px solid rgb(191, 200, 217);
+    border-left: 1px solid rgb(191, 203, 217);
     border-radius: 4px 0 0 4px;
     box-shadow: none !important
 }
@@ -110,9 +110,9 @@
     vertical-align: middle;
     cursor: pointer;
     background: #fff;
-    border: 1px solid rgb(191, 200, 217);
+    border: 1px solid rgb(191, 203, 217);
     border-left: 0;
-    color: rgb(31, 42, 61);
+    color: rgb(77, 161, 255);
     -webkit-appearance: none;
     text-align: center;
     box-sizing: border-box;
@@ -158,11 +158,11 @@
 .el-radio-button__orig-radio:disabled{}
 
 .el-radio-button__orig-radio:disabled + .el-radio-button__inner{
-    color: rgb(191, 200, 217);
+    color: rgb(191, 203, 217);
     cursor: not-allowed;
     background-image: none;
-    background-color: rgb(238, 240, 246);
-    border-color: rgb(209, 217, 229);
+    background-color: rgb(238, 241, 246);
+    border-color: rgb(209, 219, 229);
     box-shadow: none
 }
 
@@ -194,6 +194,7 @@
   -------------------------- */
     /* Colors
   -------------------------- */
+    /*--color-base-black: color(var(--color-primary) h(+6) s(33%) l(18%));*/
     /* Link
   -------------------------- */
     /* Border

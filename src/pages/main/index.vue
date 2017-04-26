@@ -45,12 +45,4 @@
     }
 </script>
 <style lang="scss">
-
-    
-    .el-table__expanded-cell{
-        padding:0px;
-    }
-    .el-popover {
-        padding:20px 10px 0;
-    }
 </style>

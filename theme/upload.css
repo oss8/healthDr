@@ -123,7 +123,7 @@
 }
 .el-progress__text{
     font-size: 14px;
-    color: rgb(72, 84, 106);
+    color: rgb(72, 87, 106);
     display: inline-block;
     vertical-align: middle;
     margin-left: 10px;
@@ -172,7 +172,7 @@
 .el-progress-bar__outer{
     height: 6px;
     border-radius: 100px;
-    background-color: rgb(228, 231, 241);
+    background-color: rgb(228, 232, 241);
     overflow: hidden;
     position: relative;
     vertical-align: middle;
@@ -314,7 +314,7 @@
 
 .el-upload__tip{
     font-size: 12px;
-    color: rgb(131, 142, 165);
+    color: rgb(131, 145, 165);
     margin-top: 7px;
 }
 
@@ -354,7 +354,7 @@
 }
 
 .el-upload-dragger .el-upload__text{
-    color: rgb(151, 164, 190);
+    color: rgb(151, 168, 190);
     font-size: 14px;
     text-align: center
 }
@@ -366,7 +366,7 @@
 
 .el-upload-dragger .el-icon-upload{
     font-size: 67px;
-    color: rgb(151, 164, 190);
+    color: rgb(151, 168, 190);
     margin: 40px 0 16px;
     line-height: 50px;
 }
@@ -376,7 +376,7 @@
 }
 
 .el-upload-dragger ~ .el-upload__files{
-    border-top: 1px solid rgba(191, 200, 217, 0.2);
+    border-top: 1px solid rgba(191, 203, 217, 0.2);
     margin-top: 7px;
     padding-top: 5px;
 }
@@ -399,7 +399,7 @@
 .el-upload-list__item{
     transition: all .5s cubic-bezier(.55,0,.1,1);
     font-size: 14px;
-    color: rgb(72, 84, 106);
+    color: rgb(72, 87, 106);
     line-height: 1.8;
     margin-top: 5px;
     position: relative;
@@ -440,7 +440,7 @@
     cursor: pointer;
     opacity: .75;
     transform: scale(.7);
-    color: rgb(72, 84, 106);
+    color: rgb(72, 87, 106);
 }
 
 .el-upload-list__item .el-icon-close:hover{
@@ -448,7 +448,7 @@
 }
 
 .el-upload-list__item:hover{
-    background-color: rgb(238, 240, 246);
+    background-color: rgb(238, 241, 246);
 }
 
 .el-upload-list__item:hover .el-icon-close{
@@ -465,7 +465,7 @@
 }
 
 .el-upload-list__item-name{
-    color: rgb(72, 84, 106);
+    color: rgb(72, 87, 106);
     display: block;
     margin-right: 40px;
     overflow: hidden;
@@ -476,7 +476,7 @@
 }
 
 .el-upload-list__item-name [class^="el-icon"] {
-    color: rgb(151, 164, 190);
+    color: rgb(151, 168, 190);
     margin-right: 7px;
     height: 100%;
     line-height: inherit;
@@ -494,7 +494,7 @@
     right: 10px;
     top: 0;
     font-size: 12px;
-    color: rgb(72, 84, 106);
+    color: rgb(72, 87, 106);
     display: none;
 }
 
@@ -810,13 +810,14 @@
     margin: 0;
     line-height: 36px;
     font-size: 14px;
-    color: rgb(72, 84, 106);
+    color: rgb(72, 87, 106);
 }
 :root{
     /* Transition
   -------------------------- */
     /* Colors
   -------------------------- */
+    /*--color-base-black: color(var(--color-primary) h(+6) s(33%) l(18%));*/
     /* Link
   -------------------------- */
     /* Border

@@ -89,7 +89,7 @@
 }
 
 .el-checkbox{
-    color: rgb(31, 42, 61);
+    color: rgb(77, 161, 255);
     position: relative;
     cursor: pointer;
     display: inline-block;
@@ -147,14 +147,14 @@
 }
 
 .el-checkbox__input.is-disabled .el-checkbox__inner{
-    background-color: rgb(238, 240, 246);
-    border-color: rgb(209, 217, 229);
+    background-color: rgb(238, 241, 246);
+    border-color: rgb(209, 219, 229);
     cursor: not-allowed
 }
 
 .el-checkbox__input.is-disabled .el-checkbox__inner::after{
     cursor: not-allowed;
-    border-color: rgb(238, 240, 246)
+    border-color: rgb(238, 241, 246)
 }
 
 .el-checkbox__input.is-disabled .el-checkbox__inner + .el-checkbox__label{
@@ -162,8 +162,8 @@
 }
 
 .el-checkbox__input.is-disabled.is-checked .el-checkbox__inner{
-    background-color: rgb(209, 217, 229);
-    border-color: rgb(209, 217, 229)
+    background-color: rgb(209, 219, 229);
+    border-color: rgb(209, 219, 229)
 }
 
 .el-checkbox__input.is-disabled.is-checked .el-checkbox__inner::after{
@@ -171,8 +171,8 @@
 }
 
 .el-checkbox__input.is-disabled.is-indeterminate .el-checkbox__inner{
-    background-color: rgb(209, 217, 229);
-    border-color: rgb(209, 217, 229)
+    background-color: rgb(209, 219, 229);
+    border-color: rgb(209, 219, 229)
 }
 
 .el-checkbox__input.is-disabled.is-indeterminate .el-checkbox__inner::before{
@@ -187,7 +187,7 @@
 .el-checkbox__inner{
     display: inline-block;
     position: relative;
-    border: 1px solid rgb(191, 200, 217);
+    border: 1px solid rgb(191, 203, 217);
     border-radius: 4px;
     box-sizing: border-box;
     width: 18px;
@@ -236,6 +236,7 @@
   -------------------------- */
     /* Colors
   -------------------------- */
+    /*--color-base-black: color(var(--color-primary) h(+6) s(33%) l(18%));*/
     /* Link
   -------------------------- */
     /* Border

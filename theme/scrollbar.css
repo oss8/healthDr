@@ -116,12 +116,12 @@
     height: 0;
     cursor: pointer;
     border-radius: inherit;
-    background-color: rgba(151, 164, 190, 0.3);
+    background-color: rgba(151, 168, 190, 0.3);
     transition: .3s background-color;
 }
 
 .el-scrollbar__thumb:hover{
-    background-color: rgba(151, 164, 190, 0.5);
+    background-color: rgba(151, 168, 190, 0.5);
 }
 
 .el-scrollbar__bar{
@@ -156,6 +156,7 @@
   -------------------------- */
     /* Colors
   -------------------------- */
+    /*--color-base-black: color(var(--color-primary) h(+6) s(33%) l(18%));*/
     /* Link
   -------------------------- */
     /* Border

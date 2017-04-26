@@ -162,7 +162,7 @@
 
 .el-dialog__close{
     cursor: pointer;
-    color: rgb(191, 200, 217);
+    color: rgb(191, 203, 217);
 }
 
 .el-dialog__close:hover{
@@ -173,12 +173,12 @@
     line-height: 1;
     font-size: 16px;
     font-weight: 700;
-    color: rgb(31, 42, 61);
+    color: rgb(77, 161, 255);
 }
 
 .el-dialog__body{
     padding: 30px 20px;
-    color: rgb(72, 84, 106);
+    color: rgb(72, 87, 106);
     font-size: 14px;
 }
 
@@ -226,6 +226,7 @@
   -------------------------- */
     /* Colors
   -------------------------- */
+    /*--color-base-black: color(var(--color-primary) h(+6) s(33%) l(18%));*/
     /* Link
   -------------------------- */
     /* Border
