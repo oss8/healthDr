@@ -5,7 +5,7 @@
                 <i class="icon logo"></i>
                 <span>社区医生</span>
             </el-menu-item>
-            <el-menu-item index="1"><i class="el-icon-menu"></i>档案</el-menu-item>
+            <el-menu-item index="1"><i class="fa fa-users"></i>档案</el-menu-item>
             <el-menu-item index="2"><i class="el-icon-message"></i>通知</el-menu-item>
             <el-menu-item index="3"><i class="el-icon-setting"></i>设置</el-menu-item>
         </el-menu>

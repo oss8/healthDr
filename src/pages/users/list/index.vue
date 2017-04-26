@@ -8,7 +8,7 @@
         </el-col>
     </el-row>
     <el-row class="list">
-        <el-col :span="6" v-for="(o, index) in 8">
+        <el-col :span="6" v-for="(patient, index) in patients">
             <el-card :body-style="{ padding: '15px' }" class="info-box">
                 <div class="personal-data">
                     <dl>
@@ -16,8 +16,8 @@
                             <i class="icon icon-user"><img src="../../../assets/logo.jpg" /></i>
                         </dt>
                         <dd>
-                            <p class="name">李国民</p>
-                            <p class="info"><span class="sex">男</span><span class="age">65岁</span></p>
+                            <p class="name">{{patient.name}}</p>
+                            <p class="info"><span class="sex">男</span><span class="age">{{patient.cardNo | ageFilter}}岁</span></p>
                             <p class="tags"><span class="tag tag-high">高血压患者</span></p>
                         </dd>
                     </dl>
@@ -52,7 +52,7 @@
       
         data () {
             return {
-
+                patients:[]
             }
         },
         methods:{
@@ -74,10 +74,10 @@
         mounted () {
             userInfo = JSON.parse(localStorage.getItem(util.localKey.login)) ;
             if(userInfo.id.length > 0) {
-                let params = {doctorid:userInfo.id}
+                let params = {doctorid:'123'}
                 util.postData('Doctors/RequestPatientList',{RequestPatientList:params})
                 .then(data => {
-
+                    this.patients = data.result;
                 })
             } else {
                 this.$router.replace({ name: 'login'})

@@ -2,24 +2,24 @@
     <div class="loginWrap">
         <div class="login">
             <div class="icon logo"></div>
-            <el-form class="login-form">
-                <el-form-item class="form-item">
-                    <el-input type="tel" placeholder="手机号码" v-model="mobile" name="mobile" @change="mobileChange(mobile)" ></el-input>
+            <el-form class="login-form" :model="registerForm" :rules="rules" ref="registerForm">
+                <el-form-item class="form-item" prop="mobile">
+                    <el-input type="tel" placeholder="手机号码" v-model="registerForm.mobile" name="mobile" ></el-input>
+                </el-form-item>
+                <el-form-item class="form-item" prop="name">
+                    <el-input type="text" placeholder="姓名" v-model="registerForm.name" name="name" ></el-input>
+                </el-form-item>
+                <el-form-item class="form-item" prop="randCode">
+                    <div class="input-box"><input type="tel" placeholder="验证码" v-model="registerForm.randCode"  maxlength=6><span class="input-btn-box"><el-button type="button" class="btn btn-send" :disabled="smsBtnDisabled" @click="sendSmsClick()">{{smsText}}</el-button></span></div>
+                </el-form-item>
+                <el-form-item class="form-item" prop="password">
+                    <el-input type="password" placeholder="密码" v-model="registerForm.password"  ></el-input>
+                </el-form-item>
+                <el-form-item class="form-item" prop="confimPassword">
+                    <el-input type="password" placeholder="确认密码" v-model="registerForm.confimPassword"  ></el-input>
                 </el-form-item>
                 <el-form-item class="form-item">
-                    <el-input type="text" placeholder="姓名" v-model="name" name="name" ></el-input>
-                </el-form-item>
-                <el-form-item class="form-item">
-                    <div class="input-box"><input type="tel" placeholder="验证码" v-model="randCode"  maxlength=6><span class="input-btn-box"><el-button type="button" class="btn btn-send" :disabled="smsBtnDisabled" @click="sendSmsClick()">{{smsText}}</el-button></span></div>
-                </el-form-item>
-                <el-form-item class="form-item">
-                    <el-input type="password" placeholder="密码" v-model="password"  ></el-input>
-                </el-form-item>
-                <el-form-item class="form-item">
-                    <el-input type="password" placeholder="确认密码" v-model="confimPassword"  ></el-input>
-                </el-form-item>
-                <el-form-item class="form-item">
-                    <el-button type="primary" size="large" class="btn-block" @click="register()">注册</el-button>
+                    <el-button type="primary" size="large" class="btn-block" @click="register('registerForm')">注册</el-button>
                 </el-form-item>
             </el-form>
             
@@ -34,12 +34,61 @@ import util from '../../util'
 import md5 from 'md5'
     export default {
         data () {
+            var validateMobile = (rule, value, callback) => {
+                console.log(value);
+                    if(!util.checkPhone(value)) {
+                        this.smsBtnDisabled = true;
+                        callback(new Error('请输入正确的手机格式'));
+                    }
+                    this.smsBtnDisabled = false;
+                    callback();
+                };
+
+            var validatePass = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请输入密码'));
+                } else {
+                    if (this.registerForm.confimPassword !== '') {
+                        this.$refs.registerForm.validateField('validateConfimPass');
+                    }
+                    callback();
+                }
+            };
+            var validateConfimPass = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请再次输入密码'));
+                } else if (value !== this.registerForm.password) {
+                    callback(new Error('两次输入密码不一致!'));
+                } else {
+                    callback();
+                }
+            };
             return {
-                mobile:'',
-                name:'',
-                randCode:'',
-                password:'',
-                confimPassword:'',
+                registerForm: {
+                    mobile:'',
+                    name:'',
+                    randCode:'',
+                    password:'',
+                    confimPassword:''
+                },
+                rules:{
+                    mobile: [
+                        { validator: validateMobile, trigger: 'blur' }
+                    ],
+                    name: [
+                        { required: true, message: '请输入姓名', trigger: 'blur' }
+                    ],
+                    randCode: [
+                        { required: true, message: '请输入验证码', trigger: 'blur' }
+                    ],
+                    confimPassword: [
+                        { validator: validateConfimPass, trigger: 'blur' }
+                    ],
+                    password: [
+                        { validator: validatePass, trigger: 'blur' }
+                    ]
+                    
+                },
                 smsBtnDisabled:true,
                 smsText:'短信获取验证码'
             }
@@ -91,33 +140,55 @@ import md5 from 'md5'
                     })
                 }
             },
-            register() {
-                if(validateInput.call(this,1)){
+            register(formName) {
+                 this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        var params = {AddDoctor:this.registerForm};
+                        this.axios.post('Doctors/AddDoctor',params)
+                        .then((data) => {
+                            if(data.status == 1) {
+                                localStorage.setItem(util.localKey.login,data.result.DoctorInfo.id)
+                                this.$router.replace({
+                                    path: '/users/list'
+                                })
+                            } else {
+                                this.$message({
+                                    message:data.result,
+                                    type: 'error'
+                                });
+                            }
+                        })
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+                // if(validateInput.call(this,1)){
                     
-                    var params = {AddDoctor:{mobile:this.mobile,password:md5(this.password),randcode:this.randCode}};
-                    this.axios.post('Doctors/AddDoctor',params)
-                    .then((data) => {
-                        if(data.status == 1) {
-                            localStorage.setItem(util.localKey.login,data.result.DoctorInfo.id)
-                            this.$router.replace({
-                                path: '/users/list'
-                            })
-                        } else {
-                            this.$message({
-                                message:data.result,
-                                type: 'error'
-                            });
-                        }
-                    })
-                }
+                //     var params = {AddDoctor:{mobile:this.mobile,password:md5(this.password),randcode:this.randCode}};
+                //     this.axios.post('Doctors/AddDoctor',params)
+                //     .then((data) => {
+                //         if(data.status == 1) {
+                //             localStorage.setItem(util.localKey.login,data.result.DoctorInfo.id)
+                //             this.$router.replace({
+                //                 path: '/users/list'
+                //             })
+                //         } else {
+                //             this.$message({
+                //                 message:data.result,
+                //                 type: 'error'
+                //             });
+                //         }
+                //     })
+                // }
             },
             mobileChange (mobile) {
-                console.log(mobile);
-               if(util.checkPhone(mobile)) {
-                   this.smsBtnDisabled = false;
-               } else {
-                   this.smsBtnDisabled = true;
-               }
+            //     console.log(mobile);
+            //    if(util.checkPhone(mobile)) {
+            //        this.smsBtnDisabled = false;
+            //    } else {
+            //        this.smsBtnDisabled = true;
+            //    }
             }
         }
     };
