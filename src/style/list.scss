@@ -16,7 +16,7 @@
         .el-col{
             padding:10px 15px;
             display: inline;
-            min-width: 260px;
+            min-width: 280px;
         }
         .info-box{
             // width: 260px;
@@ -91,4 +91,24 @@
             }
         }
     }
+}
+// 添加新人
+.addContact{
+    width: 650px;
+    .el-dialog__header{
+        text-align: center;
+        span{
+            font-size: 24px;
+        }
+        
+    }
+    .el-form-item__label{
+        min-height: 24px;
+    }
+    .el-dialog__footer{
+        text-align: center;
+        .el-button{
+            min-width: 100px;
+        }
+    }    
 }
