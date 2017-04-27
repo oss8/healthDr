@@ -6,7 +6,7 @@ import register from '@/pages/register'
 import list from '@/pages/users/list'
 import detail from '@/pages/users/detail'
 import main from '@/pages/main'
-
+import addfollow from '@/pages/users/detail/formList'
 Vue.use(Router)
 
  var router =  new Router({
@@ -27,6 +27,11 @@ Vue.use(Router)
         {
           path: '/users/detail',
           component: detail
+        },
+        {
+          path: '/users/addfollow',
+          name:'addfollow',
+          component: addfollow
         }
       ]
     },

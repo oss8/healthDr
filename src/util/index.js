@@ -4,7 +4,7 @@ import Vue from 'vue'
 import {Message} from 'element-ui'
 import nprogress from "nprogress";
 import axios from 'axios';
-import xlsxExport from './xlsx'
+import constData from './data.js'
 // ajax.beforeEach((res, next) => {
 //   // res.url = config.baseUrl + res.url
 //   // var { accesstoken } = stores.state.user
@@ -96,7 +96,7 @@ export default {
       }, 200)
     }, time)
   },
-  xlsxExport,
+  constData,
   axios,
   postData (url,params) {
     let promiseFunc = (resove,reject) => {

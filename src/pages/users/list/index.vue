@@ -8,9 +8,9 @@
         </el-col>
     </el-row>
     <el-row class="list">
-        <el-col :span="6" v-for="(patient, index) in patients">
-            <el-card :body-style="{ padding: '15px' }" class="info-box">
-                <div class="personal-data">
+        <el-col :span="6" v-for="(patient, index) in patients" :key="patient.id" >
+            <el-card :body-style="{ padding: '15px' }" class="info-box"  @click="patientClick(patient)">
+                <div class="personal-data" >
                     <dl>
                         <dt>
                             <i class="icon icon-user"><img src="../../../assets/logo.jpg" /></i>
@@ -39,8 +39,9 @@
             </el-card>
         </el-col>
     </el-row>
-    <dtdialog :model="dialogFormVisible"></dtdialog>
-
+     <el-dialog custom-class="addContact" title="新建随访人资料" size="large" v-model="dialogFormVisible">
+        <dtdialog ></dtdialog>
+     </el-dialog>
 </div>
 
 </template>
@@ -59,7 +60,8 @@
         data () {
             return {
                 patients:[],
-                dialogFormVisible:true
+                dialogFormVisible:false,
+            
             }
         },
         methods:{
@@ -76,6 +78,10 @@
                 .then(data => {
 
                 })
+            },
+            patientClick(patient) {
+                console.log('gogoo');
+                this.$router.push('/users/detail');
             }
         },
         mounted () {
@@ -89,6 +95,8 @@
             } else {
                 this.$router.replace({ name: 'login'})
             }
+
+        
         }
     }
 

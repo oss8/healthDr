@@ -13,10 +13,9 @@
                 </dl>
                 <div class="doct-button">
                     <el-button type="primary">编辑资料</el-button>
-                    <el-button type="primary">新建随访记录</el-button>
+                    <router-link to="/users/addfollow"><el-button type="primary">新建随访记录</el-button></router-link> 
                 </div>
             </el-card>
-            <formList></formList>
             <el-card :body-style="{ padding: '15px' }">
                 <h2>高血压高危人群随访服务记录</h2>
                 <div class="mod-info">
@@ -102,7 +101,7 @@
                 <p><span>添加新随访人</span></p>
             </div>
             <div class="list-box">
-                <el-card :body-style="{ padding: '15px' }"  class="personal-data" v-for="(o, index) in 8">
+                <el-card :body-style="{ padding: '15px' }"  class="personal-data" v-for="(o, index) in follows">
                     <dl>
                         <dt><i class="icon icon-user"><img src="../../../assets/logo.jpg" /></i></dt>
                         <dd>
@@ -128,7 +127,7 @@
         },
         data () {
             return {
-
+                follows:[1,2,3,4,5,6]
             }
         },
         methods:{
