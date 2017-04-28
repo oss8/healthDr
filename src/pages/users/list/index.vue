@@ -9,7 +9,7 @@
     </el-row>
     <el-row class="list">
         <el-col :span="6" v-for="(patient, index) in patients" >
-            <el-card :body-style="{ padding: '15px' }" class="info-box"  >
+            <el-card :body-style="{ padding: '10px' }" class="info-box"  >
                 <div class="personal-data"  @click="patientClick(patient)">
                     <dl>
                         <dt>

@@ -1,11 +1,11 @@
 <template>
     <el-row class="header">
-        <el-col :span="4">
+        <el-col :span="10">
             <div class="grid-content bg-purple">
-                <el-input placeholder="搜索" icon="search"></el-input>
+                <el-input placeholder="搜索" icon="search" class="doct-search"></el-input>
             </div>
         </el-col>
-        <el-col :span="20">
+        <el-col :span="14">
             <div class="grid-content bg-purple">
                 <div class="login">您好<span class="userName">{{name}}</span><el-button type="text" @click="exit()">退出</el-button></div>
             </div>

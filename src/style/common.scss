@@ -84,7 +84,9 @@ select:-webkit-autofill{
     }
 textarea{outline:none;resize:none;}
 table { border-collapse: collapse; border-spacing: 0; }
-
+.el-checkbox,.el-radio{
+    color: rgb(72, 87, 106);
+}
 /** 重置文本格式元素 **/
 a { 
     text-decoration: none; 
@@ -180,18 +182,21 @@ td {
     height: 56px;
     background-color: #FFFFFF;
     border-bottom:1px solid #E7E9EA;
-    padding: 10px 30px 0;
+    padding: 10px 20px 0;
     .login{
         float: right;
         .userName{
             padding: 0 10px;
         }
     }
+    .doct-search{
+        width: 240px;
+    }
 }
 .fa {
     margin-right: 10px;
 }
-//框架
+//页面结构布局
 .doctor {
     min-width: 1000px;
     min-height:100%;
@@ -240,4 +245,8 @@ td {
             vertical-align: top;  
         }
     }
+}
+// 弹出窗口
+.dialog-footer{
+    text-align: center;
 }

@@ -101,7 +101,7 @@
                 <p><span>添加新随访人</span></p>
             </div>
             <div class="list-box">
-                <el-card :body-style="{ padding: '15px' }"  class="personal-data" v-for="(o, index) in follows">
+                <el-card :body-style="{ padding: '10px' }"  class="personal-data" v-for="(o, index) in follows">
                     <dl>
                         <dt><i class="icon icon-user"><img src="../../../assets/logo.jpg" /></i></dt>
                         <dd>

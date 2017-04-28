@@ -87,10 +87,10 @@
                 </el-row>
                 </el-form>
             </div>
-            <span slot="footer" class="dialog-footer">
+            <div slot="footer" class="dialog-footer">
                 <el-button type="primary" class="" @click="submitForm('addForm')">保存</el-button>
                 <el-button class="" @click="resetForm('addForm')">重置</el-button>
-            </span>
+            </div>
         </div>
         
     

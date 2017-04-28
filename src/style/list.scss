@@ -1,7 +1,7 @@
 .patient{
     .title{
-        height: 88px;
-        padding: 30px 30px 10px;
+        height: 74px;
+        padding: 30px 20px 10px;
         h2{
             font-size: 24px;
             line-height: 36px;
@@ -12,11 +12,11 @@
     }
     //列表
     .list{
-        padding: 0 15px;
+        padding: 0 10px;
         .el-col{
-            padding:10px 15px;
+            padding:10px;
             display: inline;
-            min-width: 300px;
+            min-width: 280px;
         }
         .info-box{
             min-height: 200px;
