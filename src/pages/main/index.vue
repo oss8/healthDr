@@ -37,7 +37,7 @@
         methods:{
         },
         mounted () {
-            // userInfo = JSON.parse(localStorage.getItem(util.localKey.login)) ;
+            // userInfo = JSON.parse(localStorage.getItem(util.localKey.login));
             // console.log(userInfo);
             // if(userInfo.id.length == 0) {
             //     this.$router.replace({

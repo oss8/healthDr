@@ -8,15 +8,15 @@
         </el-col>
     </el-row>
     <el-row class="list">
-        <el-col :span="6" v-for="(patient, index) in patients" :key="patient.id" >
-            <el-card :body-style="{ padding: '15px' }" class="info-box"  @click="patientClick(patient)">
-                <div class="personal-data" >
+        <el-col :span="6" v-for="(patient, index) in patients" >
+            <el-card :body-style="{ padding: '15px' }" class="info-box"  >
+                <div class="personal-data"  @click="patientClick(patient)">
                     <dl>
                         <dt>
                             <i class="icon icon-user"><img src="../../../assets/logo.jpg" /></i>
                         </dt>
                         <dd>
-                            <p class="name">{{patient.name}}</p>
+                            <p class="name">{{patient.name || '匿名'}}</p>
                             <p class="info"><span class="sex">男</span><span class="age">{{patient.cardNo | ageFilter}}岁</span></p>
                             <p class="tags"><span class="tag tag-high">高血压患者</span></p>
                         </dd>
@@ -32,9 +32,8 @@
                     </el-dropdown>
                 </div>
                 <table class="visit">
-                    <tr><td colspan="2">最近一次随访：2017-04-01</td></tr>
-                    <tr><td rowspan="2" width="80" align="center" class="key-red">偏高</td><td>血压 149/78 mmHg</td></tr>
-                    <tr><td>脉搏 80 bpm</td></tr>
+                    <tr><td colspan="2">最近一次随访：{{patient.lastfollowuptime | timeFilter}}   </td></tr>
+                    <tr><td  width="80" align="center" class="key-red">偏高</td><td>血压 {{patient.context.bloodPressure || '0/0'}}  mmHg</td></tr>
                 </table>
             </el-card>
         </el-col>
@@ -79,9 +78,8 @@
 
                 })
             },
-            patientClick(patient) {
-                console.log('gogoo');
-                this.$router.push('/users/detail');
+            patientClick (patient) {
+                this.$router.push({name:'detail',params:{userInfo:JSON.stringify(patient)}});
             }
         },
         mounted () {
@@ -90,13 +88,29 @@
                 let params = {doctorid:'123'}
                 util.postData('Doctors/RequestPatientList',{RequestPatientList:params})
                 .then(data => {
-                    this.patients = data.result;
+                    console.log(data.result);
+                    this.patients = data.result.map(item => {
+                        try
+                            {
+                                item.context = JSON.parse(item.lastfollowupcontext);
+                            }
+                        catch(err)
+                            {
+                                //在此处理错误
+                                item.context = {}
+                            }
+                        if(!item.context) {
+                             item.context = {};
+                        }
+                        console.log(item.context);
+                        return  item;
+                    })
+                    
                 })
             } else {
                 this.$router.replace({ name: 'login'})
             }
-
-        
+   
         }
     }
 

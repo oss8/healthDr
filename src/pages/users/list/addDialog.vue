@@ -4,27 +4,27 @@
                 <el-form label-position="top" :model="addForm" :rules="rules" ref="addForm" >
                 <el-row :gutter="15">
                     <el-col :span="6">
-                    <el-form-item label="姓名" prop="name">
-                        <el-input  placeholder="姓名" maxlength="20" v-model="addForm.name"></el-input>
+                    <el-form-item label="姓名" prop="pname">
+                        <el-input  placeholder="姓名"  v-model="addForm.pname"></el-input>
                     </el-form-item>
                     </el-col>
                     <el-col :span="4">
-                    <el-form-item label="性别" prop="sex">
-                        <el-select placeholder="请选择" v-model="addForm.sex">
-                            <el-option label="男" value="1"></el-option>
-                            <el-option label="女" value="2"></el-option>
+                    <el-form-item label="性别" prop="psex">
+                        <el-select placeholder="请选择" v-model="addForm.psex">
+                            <el-option label="男" value="0"></el-option>
+                            <el-option label="女" value="1"></el-option>
                         </el-select>
                     </el-form-item>
                     </el-col>
                     <el-col :span="7">
-                    <el-form-item label="联系电话" prop="mobile">
-                        <el-input  placeholder="手机号" maxlength="11" minlength="11" v-model="addForm.mobile"></el-input>
+                    <el-form-item label="联系电话" prop="pmobile">
+                        <el-input  placeholder="手机号"v-model="addForm.pmobile"></el-input>
                     </el-form-item>
                     </el-col>
                     <el-col :span="7">
-                    <el-form-item label="随访类型" prop="followType">
-                        <el-select placeholder="请选择" v-model="addForm.followType">
-                            <el-option label="高血压患者" value=""></el-option>
+                    <el-form-item label="随访类型" prop="casetype">
+                        <el-select placeholder="请选择" v-model="addForm.casetype">
+                            <el-option label="高血压患者" value="htn"></el-option>
                         </el-select>
                     </el-form-item>
                     </el-col>
@@ -47,10 +47,10 @@
                    
                     <el-col :span="14">
                     <el-form-item label="卡号" prop="cardNo">
-                    <el-input placeholder="卡号" maxlength="18" minlength="15" v-model="addForm.cardNo">
+                    <el-input placeholder="卡号"  v-model="addForm.cardNo">
                         <el-select slot="prepend" placeholder="请选择类型" class="card-select" v-model="addForm.cardType">
-                            <el-option label="身份证" value="1"></el-option>
-                            <el-option label="医疗卡号" value="2"></el-option>
+                            <el-option label="身份证" value="idCard"></el-option>
+                            <el-option label="医疗卡号" value="'medicalId'"></el-option>
                         </el-select>
                     </el-input>
                     </el-form-item>
@@ -58,30 +58,30 @@
                 </el-row>
                 <el-row :gutter="15">
                     <el-col :span="8">
-                    <el-form-item label="居住地址/省份" prop="provice">
-                        <el-select placeholder="省份" v-model="addForm.provice">
-                            <el-option label="浙江" value="1"></el-option>
+                    <el-form-item label="居住地址/省份" prop="proviceIndex">
+                        <el-select placeholder="省份" v-model="addForm.proviceIndex">
+                            <el-option v-for="(provice,index) in constData.maps" :label="provice.name" :value="index"></el-option>
                         </el-select>
                     </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                    <el-form-item label="城市" prop="city">
-                        <el-select placeholder="城市" v-model="addForm.city">
-                            <el-option label="杭州" value="1"></el-option>
+                    <el-form-item label="城市" prop="cityIndex">
+                        <el-select placeholder="城市" v-model="addForm.cityIndex" >
+                            <el-option  v-for="(city,index) in constData.maps[addForm.proviceIndex].city" :label="city.name" :value="index"></el-option>
                         </el-select>
                     </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                    <el-form-item label="区域" prop="area">
-                        <el-select placeholder="区域" v-model="addForm.area">
-                            <el-option label="拱墅" value="1"></el-option>
+                    <el-form-item label="区域" prop="regionIndex">
+                        <el-select placeholder="区域" v-model="addForm.regionIndex">
+                            <el-option v-for="(region,index) in ((constData.maps[addForm.proviceIndex].city)[addForm.cityIndex].area)" :label="region" :value="index"></el-option>
                         </el-select>
                     </el-form-item>
                     </el-col>
                     
                     <el-col :span="24">
                     <el-form-item label="" prop="address">
-                        <el-input  placeholder="详细地址" maxlength="50" v-model="addForm.address"></el-input>
+                        <el-input  placeholder="详细地址"  v-model="addForm.address"></el-input>
                     </el-form-item>
                     </el-col>
                 </el-row>
@@ -102,33 +102,35 @@
      export default {
         props:{
             model:Boolean,
-            data:Array
+            data:Object
         },
         data () {
             return {
                 addForm:{
-                    name:'',
-                    sex:null,
-                    mobile:'',
-                    followType:null,
-                    brithYear:null,
-                    brithMonth:null,
-                    cardType:null,
-                    cardNo:'',
-                    provice:'',
-                    city:'',
-                    area:'',
-                    address:''
-                },
+                        pname:this.data.name  || '',
+                        psex:this.data.sex  || '0',
+                        pmobile:this.data.mobile  || '',
+                        cardType:'idCard',
+                        brithYear:'',
+                        brithMonth:'',
+                        casetype:'htn',
+                        cardNo:this.data.cardNo  || '',
+                        proviceIndex:0,
+                        cityIndex:0,
+                        regionIndex:0,
+                        address:this.data.address  || '',
+                        pcardno:'',
+                        pmedicalNo:''  
+                    },
                 constData:util.constData,
                 rules:{
-                    name:[
-                        { required: true, message: '请输入姓名', trigger: 'blur' }
+                    pname:[
+                        { required: true,maxlength:20, message: '请输入姓名', trigger: 'blur' }
                     ],
-                    sex:[
+                    psex:[
                         { required: true, message: '请输入性别', trigger: 'blur' }
                     ],
-                    mobile:[
+                    pmobile:[
                         { required: true, message: '请输入手机号码', trigger: 'blur' }
                     ],
                     followType:[
@@ -140,23 +142,23 @@
                     brithMonth:[
                         { required: true, message: '请选择出生月份', trigger: 'blur' }
                     ],
-                    cardType:[
+                    casetype:[
                         { required: true, message: '请选择卡片类型', trigger: 'blur' }
                     ],
                     cardNo:[
                         { required: true, message: '请输入卡号', trigger: 'blur' }
                     ],
-                    provice:[
-                        { required: true, message: '请选择省份', trigger: 'blur' }
-                    ],
-                    city:[
-                        { required: true, message: '请选择城市', trigger: 'blur' }
-                    ],
-                    area:[
-                        { required: true, message: '请选择区域', trigger: 'blur' }
-                    ],
+                    // provice:[
+                    //     { required: true, message: '请选择省份', trigger: 'blur' }
+                    // ],
+                    // city:[
+                    //     { required: true, message: '请选择城市', trigger: 'blur' }
+                    // ],
+                    // region:[
+                    //     { required: true, message: '请选择区域', trigger: 'blur' }
+                    // ],
                     address:[
-                        { required: true, message: '请输入详细地址', trigger: 'blur' }
+                        { required: true,maxlength:50, message: '请输入详细地址', trigger: 'blur' }
                     ]
                 }
             }
@@ -165,7 +167,26 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    alert('submit!');
+                    let params = this.addForm;
+                    params.doctorid = "123";
+                    let provice = this.constData.maps[this.addForm.proviceIndex];
+                    let city = provice.city[this.addForm.cityIndex];
+                    params.province = provice.name;
+                    params.city = city.name;
+                    params.region = city.area[this.addForm.regionIndex]
+                    if(params.cardType == 'idCard') {
+                        params.pcardno = params.cardNo;
+                    } else {
+                        params.pmedicalNo = params.cardNo;
+                    }
+                    util.postData('Doctors/AddPatient',{AddPatient:params})
+                    .then(data => {
+                        util.toast('添加成功');
+                        this.$refs[formName].resetFields();
+                    })
+                    .catch(err => {
+
+                    })
                 } else {
                     console.log('error submit!!');
                     return false;
@@ -177,7 +198,7 @@
             }
         },
         mounted () {
-            console.log(util.constData.years);
+           
         }
     };
 </script>
