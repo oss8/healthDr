@@ -170,7 +170,7 @@
                 <el-input  placeholder="" v-model="followForm.assistExam"></el-input>
             </el-form-item>
         </el-col>
-        <el-col :span="5">
+        <el-col :span="12">
         <el-form-item label="下次随访日期" prop="nextDate">
             <el-date-picker type="date" placeholder="选择日期" v-model="followForm.nextDate" style="width: 100%;"></el-date-picker>
         </el-form-item>
@@ -179,7 +179,7 @@
     </el-row>
     <el-form-item>
         <el-button type="primary" @click="submitForm('followForm')">保存</el-button>
-        <el-button @click="resetForm('followForm')">重置</el-button>
+        <el-button v-on:click="cancelForm()">取消</el-button>
     </el-form-item>
     </el-form>
 </el-card>
@@ -300,6 +300,7 @@
                     console.log(params);
                     util.postData('Doctors/AddPantientFollow',{AddPantientFollow:params})
                     .then(data => {
+                        this.$refs['followForm'].resetFields();
                         util.toast('添加成功');
                     })
                 } else {
@@ -307,6 +308,9 @@
                     return false;
                 }
                 });
+            },
+            cancelForm () {
+                this.$emit('cancelForm');
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();

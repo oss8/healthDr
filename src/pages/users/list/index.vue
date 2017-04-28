@@ -39,7 +39,7 @@
         </el-col>
     </el-row>
      <el-dialog custom-class="addContact" title="新建随访人资料" size="large" v-model="dialogFormVisible">
-        <dtdialog ></dtdialog>
+        <dtdialog :data="{}"></dtdialog>
      </el-dialog>
 </div>
 
@@ -75,7 +75,7 @@
                 let params = {}
                 util.postData('Doctors/AddPantient',{AddPantient:params})
                 .then(data => {
-
+                    
                 })
             },
             patientClick (patient) {

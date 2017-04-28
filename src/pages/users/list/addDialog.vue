@@ -101,13 +101,12 @@
     
      export default {
         props:{
-            model:Boolean,
             data:Object
         },
         data () {
             return {
                 addForm:{
-                        pname:this.data.name  || '',
+                        pname:(this.data.name  || ''),
                         psex:this.data.sex  || '0',
                         pmobile:this.data.mobile  || '',
                         cardType:'idCard',
@@ -168,6 +167,9 @@
                 this.$refs[formName].validate((valid) => {
                 if (valid) {
                     let params = this.addForm;
+                    if(this.data.id) {
+                        params.patientid = this.data.id;
+                    }
                     params.doctorid = "123";
                     let provice = this.constData.maps[this.addForm.proviceIndex];
                     let city = provice.city[this.addForm.cityIndex];
@@ -181,7 +183,12 @@
                     }
                     util.postData('Doctors/AddPatient',{AddPatient:params})
                     .then(data => {
-                        util.toast('添加成功');
+                        if (this.data.id) {
+                            util.toast('添加成功');
+                        } else {
+                            util.toast('保存成功');
+                        }
+                        
                         this.$refs[formName].resetFields();
                     })
                     .catch(err => {
@@ -192,6 +199,9 @@
                     return false;
                 }
                 });
+            },
+            cancelAdd () {
+
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();

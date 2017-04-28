@@ -16,7 +16,7 @@
                     <el-button type="primary" @click="editing=true">新建随访记录</el-button>
                 </div>
             </el-card>
-            <formList v-if="editing" :id="userInfo.id"></formList>
+            <formList v-if="editing" v-on:cancelForm="closeEditForm" :id="userInfo.id"></formList>
               <el-dialog custom-class="addContact" title="新建随访人资料" size="large" v-model="editUserInfo">
                 <dtdialog :data="userInfo" ></dtdialog>
             </el-dialog>
@@ -136,6 +136,9 @@
             }
         },
         methods:{
+            closeEditForm () {
+                this.editing = false;
+            }
         },
         mounted () {
             let { userInfo = null} = this.$route.params;
@@ -143,6 +146,9 @@
             if (userInfo) {
                 // console.log(JSON.parse(userInfo));
                 this.userInfo = JSON.parse(userInfo);
+                if(!this.userInfo.lastfollowupcontext){
+                    this.editing = true;
+                }
             } else {
                 this.$router.go(-1);
             }
