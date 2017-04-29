@@ -16,7 +16,7 @@
                     <el-button type="primary" @click="editing=true">新建随访记录</el-button>
                 </div>
             </el-card>
-            <formList v-if="editing" v-on:cancelForm="closeEditForm" :id="userInfo.id"></formList>
+            <formList v-if="editing" v-on:cancelForm="closeEditForm" v-on:addRecode="addRecode"  :id="userInfo.id"></formList>
               <el-dialog custom-class="addContact" title="新建随访人资料" size="large" v-model="editUserInfo">
                 <dtdialog :data="userInfo" ></dtdialog>
             </el-dialog>
@@ -38,7 +38,7 @@
                     <h4>主要体征</h4>
                     <table>
                         <tr>
-                            <td width="20%"><p>血压(mmHg)</p><p>{{userInfo.context.bloodPressure}}</p></td>
+                            <td width="20%"><p>血压(mmHg)</p><p>{{userInfo.context.bloodHigh+'/'+userInfo.context.bloodLow}}</p></td>
                             <td width="20%"><p>体重(kg)</p><p>{{userInfo.context.weight}}</p></td>
                             <td width="20%"><p>身高(cm)</p><p>{{userInfo.context.height}}</p></td>
                             <td width="20%"><p>体质指数(kg/m2)</p><p>{{userInfo.context.bmi}}</p></td>
@@ -96,17 +96,14 @@
         </div>
         <div class="other-list">
             <h2>随访人列表</h2>
-            <div class="add-list">
-                <p><i class="el-icon-plus"></i></p>
-                <p><span>添加新随访人</span></p>
-            </div>
+         
             <div class="list-box">
-                <el-card :body-style="{ padding: '10px' }"  class="personal-data" v-for="(o, index) in follows">
-                    <dl>
+                <el-card :body-style="{ padding: '10px' }"  class="personal-data " :class="{'personal-data-selected':userInfo.id == patient.id}" v-for="(patient, index) in patients">
+                    <dl @click="patientClick(patient)">
                         <dt><i class="icon icon-user"><img src="../../../assets/logo.jpg" /></i></dt>
                         <dd>
-                            <p><span class="name">李国民</span></p>
-                            <p class="info"><span>男</span><span>67岁</span></p>
+                            <p><span class="name">{{patient.name}}</span></p>
+                            <p class="info"><span>{{patient.sex | sexFilter}}</span><span>67岁</span></p>
                             <p><span class="tag tag-high">高血压患者</span></p>
                         </dd>
                     </dl>
@@ -122,6 +119,10 @@
     import is from 'is'
     var userInfo = {};
     // var dataSource = [];
+    //    <!--><div class="add-list">
+    //             <p><i class="el-icon-plus"></i></p>
+    //             <p><span>添加新随访人</span></p>
+    //         </div><!-->
     export default {
         components:{
             formList,
@@ -132,32 +133,49 @@
                 follows:[1,2,3,4,5,6],
                 editing:false,
                 editUserInfo:false,
+                patients:[],
                 userInfo:{}
             }
         },
         methods:{
             closeEditForm () {
                 this.editing = false;
+            },
+            addRecode (context) {
+                context.bmi = (context.weight/((context.height*context.height)/10000)).toFixed(2)
+                this.userInfo.context = context;
+                this.editing = false;
+            },
+            patientClick (patient) {
+                console.log(patient);
+                this.userInfo = patient;
+                if(!this.userInfo.context.thisDate){
+                    this.editing = true;
+                } else {
+                    this.editing = false;
+                }
             }
         },
         mounted () {
-            let { userInfo = null} = this.$route.params;
-            // console.log(userInfo)
-            if (userInfo) {
-                // console.log(JSON.parse(userInfo));
-                this.userInfo = JSON.parse(userInfo);
-                if(!this.userInfo.lastfollowupcontext){
+            let params = this.$route.params;
+            let userInfo = params.selectPatient;
+            this.patients = params.patients;
+            if (userInfo.id) {
+                this.userInfo = userInfo;
+                if(!this.userInfo.lastfollowupcontext || this.userInfo.edit==true){
                     this.editing = true;
                 }
             } else {
                 this.$router.go(-1);
             }
-            // if(!this.$router.params.id) {
-            //     // this.$route.go(-1);
-            // }
+
         }
     }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../../../style/detail.scss";
+.personal-data-selected {
+     border:solid 1px #4990E2;
+    
+}
 </style>

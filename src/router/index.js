@@ -16,16 +16,19 @@ Vue.use(Router)
       name: 'main',
       component: main,
       children:[
-        // {
-        //   path: '/list/login',
-        //   component: Login
-        // },
+        {
+          path: '/users/login',
+          component: Login
+        },{
+          path: '/users/form',
+          component: addfollow
+        },
         {
           path: '/users/list',
           component: list
         },
         {
-          path: '/users/detail/:userInfo',
+          path: '/users/detail',
           name:'detail',
           component: detail
         },

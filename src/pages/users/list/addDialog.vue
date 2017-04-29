@@ -98,7 +98,7 @@
 
 <script>
     import util from '@/util'
-    
+    let userId = '';
      export default {
         props:{
             data:Object
@@ -170,7 +170,7 @@
                     if(this.data.id) {
                         params.patientid = this.data.id;
                     }
-                    params.doctorid = "123";
+                    params.doctorid = userId;
                     let provice = this.constData.maps[this.addForm.proviceIndex];
                     let city = provice.city[this.addForm.cityIndex];
                     params.province = provice.name;
@@ -208,7 +208,7 @@
             }
         },
         mounted () {
-           
+            userId = JSON.parse(localStorage.getItem(util.localKey.login)).id ;
         }
     };
 </script>

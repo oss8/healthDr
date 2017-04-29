@@ -41,9 +41,14 @@
         <el-col :span="24">
             <h4>主要体征</h4>
         </el-col>
-        <el-col :span="6">
-            <el-form-item label="血压(mmHg)" prop="bloodPressure" >
-                <el-input  placeholder=""  v-model="followForm.bloodPressure"></el-input>
+        <el-col :span="5">
+            <el-form-item label="血压(mmHg)高值" prop="bloodHigh" >
+                <el-input  placeholder="" type="number"  v-model="followForm.bloodHigh"></el-input>
+            </el-form-item>
+        </el-col>
+        <el-col :span="5">
+            <el-form-item label="血压(mmHg)低值" prop="bloodLow" >
+                <el-input  placeholder="" type="number"  v-model="followForm.bloodLow"></el-input>
             </el-form-item>
         </el-col>
         <el-col :span="5" >
@@ -51,16 +56,12 @@
                 <el-input  placeholder="" type="number" v-model="followForm.weight"></el-input>
             </el-form-item>
         </el-col>
-        <el-col :span="4">
+        <el-col :span="5">
             <el-form-item label="身高(cm)" prop="height">
                 <el-input  placeholder="" type="number"  v-model="followForm.height"></el-input>
             </el-form-item>
         </el-col>
-        <el-col :span="5">
-            <el-form-item label="体质指数(kg/m2)" prop="bmi">
-                <el-input  placeholder="" v-model="followForm.bmi"></el-input>
-            </el-form-item>
-        </el-col>
+
         <el-col :span="4">
             <el-form-item label="腰围(cm)" prop="waistline">
                 <el-input  placeholder="" type="number" v-model="followForm.waistline"></el-input>
@@ -189,7 +190,7 @@
 <script>
     import util from '@/util'
     import is from 'is'
-    var userInfo = {};
+    var userId = '';
     // var dataSource = [];
     export default {
         props:{
@@ -202,11 +203,11 @@
                     followType:'tel',
                     dangerType:[],
                     dangerOther:'',
-                    bloodPressure:'',
-                    weight:0,
-                    height:170,
-                    bmi:0,
-                    waistline:0,
+                    bloodHigh:'',
+                    bloodLow:'',
+                    weight:'',
+                    height:'',
+                    waistline:'',
                     bodyOther:'',
                     smoke:0,
                     wine:0,
@@ -233,41 +234,40 @@
                     dangerType:[
                         {type: 'array', required: true, message: '请选择危险因素', trigger: 'blur' }
                     ],
-                    bloodPressure:[
-                        { required: true, message: '请输入血压', trigger: 'blur' }
+                    bloodHigh:[
+                        { required: true, message: '请输入血压高值', trigger: 'blur' }
                     ],
-
+                    bloodLow:[
+                        { required: true, message: '请输入血压低值', trigger: 'blur' }
+                    ],
                     weight:[
                         { required: true,maxlength:3, message: '请输入体重', trigger: 'blur' }
                     ],
                     height:[
                         { required: true,maxlength:3, message: '请输入身高', trigger: 'blur' }
                     ],
-                    bmi:[
-                        { required: true,maxlength:3, message: '请输入体质指数', trigger: 'blur' }
-                    ],
-                    waistline:[
-                        { required: true,maxlength:3, message: '请输入腰围', trigger: 'blur' }
-                    ],
+                    // waistline:[
+                    //     { required: true,maxlength:3, message: '请输入腰围', trigger: 'blur' }
+                    // ],
                   
-                    smoke:[
-                        { required: false,maxlength:3, message: '请输入吸烟量', trigger: 'blur' }
-                    ],
-                    wine:[
-                        { required: false,maxlength:3, message: '请输入饮酒量', trigger: 'blur' }
-                    ],
-                    salt:[
-                        { required: false,maxlength:3, message: '请输入摄盐情况', trigger: 'blur' }
-                    ],
-                    oil:[
-                        { required: false,maxlength:3, message: '请输入食用油摄入', trigger: 'blur' }
-                    ],
-                    sportNum:[
-                        { required: false,maxlength:3, message: '请输入运动次数', trigger: 'blur' }
-                    ],
-                    sportMinute:[
-                        { required: false,maxlength:5, message: '请输入运动分钟数', trigger: 'blur' }
-                    ],
+                    // smoke:[
+                    //     { required: false,maxlength:3, message: '请输入吸烟量', trigger: 'blur' }
+                    // ],
+                    // wine:[
+                    //     { required: false,maxlength:3, message: '请输入饮酒量', trigger: 'blur' }
+                    // ],
+                    // salt:[
+                    //     { required: false,maxlength:3, message: '请输入摄盐情况', trigger: 'blur' }
+                    // ],
+                    // oil:[
+                    //     { required: false,maxlength:3, message: '请输入食用油摄入', trigger: 'blur' }
+                    // ],
+                    // sportNum:[
+                    //     { required: false,maxlength:3, message: '请输入运动次数', trigger: 'blur' }
+                    // ],
+                    // sportMinute:[
+                    //     { required: false,maxlength:5, message: '请输入运动分钟数', trigger: 'blur' }
+                    // ],
                     isBack:[
                         { required: true, message: '请选择是否转归', trigger: 'blur' }
                     ],
@@ -296,10 +296,11 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    let params = {doctorid:'123',pantientid:this.id,context:JSON.stringify(this.followForm)}
+                    let params = {doctorid:userId,pantientid:this.id,context:JSON.stringify(this.followForm)}
                     console.log(params);
                     util.postData('Doctors/AddPantientFollow',{AddPantientFollow:params})
                     .then(data => {
+                        this.$emit('addRecode',JSON.parse(params.context));
                         this.$refs['followForm'].resetFields();
                         util.toast('添加成功');
                     })
@@ -310,6 +311,7 @@
                 });
             },
             cancelForm () {
+                
                 this.$emit('cancelForm');
             },
             resetForm(formName) {
@@ -317,7 +319,7 @@
             }
         },
         mounted () {
-            console.log(this.id);
+            userId = JSON.parse(localStorage.getItem(util.localKey.login)).id ;
             // this.$router.replace('/users/list')
         }
     }

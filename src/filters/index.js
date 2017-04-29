@@ -39,7 +39,33 @@ const timeFilter  = function(time, format){
               }  
           })  
       }; 
+
+    const sexFilter =  sex => {
+        if(sex == 0) {
+            return '男'
+        } else {
+            return '女'
+        }
+    };
+
+    const bloodFilter = bloodData => {
+        let arr = bloodData.split('/');
+        if(arr.length == 2) {
+            let high = arr[0]
+            if(high > 120) {
+                return '偏高'
+            } 
+            let low = arr[1] 
+            if(low < 80) {
+                return '偏低'
+            }
+            return '正常'
+        }
+        return '未知'
+    };
 export default {
     ageFilter,
-    timeFilter
+    timeFilter,
+    bloodFilter,
+    sexFilter
 }
