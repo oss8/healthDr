@@ -1507,22 +1507,15 @@ let userId = '';
     props: {
         data: Object
     },
-    computed: {
-        addForm: function () {
-            let brithYear = '';
-            let brithMonth = '';
-            if (this.data.birthday) {
-                let arr = this.data.birthday.split('/');
-                brithYear = arr[0] || '';
-                brithMonth = arr[1] || '';
-            }
-            return {
+    data() {
+        return {
+            addForm: {
                 pname: this.data.name || '',
-                psex: this.data.sex || '0',
+                psex: this.data.sex || '男',
                 pmobile: this.data.mobile || '',
                 cardType: 'idCard',
-                brithYear: brithYear,
-                brithMonth: brithMonth,
+                brithYear: '',
+                brithMonth: '',
                 casetype: 'htn',
                 cardNo: this.data.cardNo || '',
                 proviceIndex: 0,
@@ -1531,35 +1524,16 @@ let userId = '';
                 address: this.data.address || '',
                 pcardno: '',
                 pmedicalNo: ''
-            };
-        }
-    },
-    data() {
-        return {
-            // addForm:{
-            //         pname:(this.data.name  || ''),
-            //         psex:this.data.sex  || '0',
-            //         pmobile:this.data.mobile  || '',
-            //         cardType:'idCard',
-            //         brithYear:'',
-            //         brithMonth:'',
-            //         casetype:'htn',
-            //         cardNo:this.data.cardNo  || '',
-            //         proviceIndex:0,
-            //         cityIndex:0,
-            //         regionIndex:0,
-            //         address:this.data.address  || '',
-            //         pcardno:'',
-            //         pmedicalNo:''  
-            //     },
+            },
+
             constData: __WEBPACK_IMPORTED_MODULE_0__util__["a" /* default */].constData,
             rules: {
                 pname: [{ required: true, maxlength: 20, message: '请输入姓名', trigger: 'blur' }],
                 psex: [{ required: true, message: '请输入性别', trigger: 'blur' }],
                 pmobile: [{ required: true, message: '请输入手机号码', trigger: 'blur' }],
                 followType: [{ required: true, message: '请选择随访类型', trigger: 'blur' }],
-                brithYear: [{ required: true, message: '请选择出生年份', trigger: 'blur' }],
-                brithMonth: [{ required: true, message: '请选择出生月份', trigger: 'blur' }],
+                brithYear: [{ type: 'string', required: true, message: '请选择出生年份', trigger: 'blur' }],
+                brithMonth: [{ type: 'string', required: true, message: '请选择出生月份', trigger: 'blur' }],
                 casetype: [{ required: true, message: '请选择卡片类型', trigger: 'blur' }],
                 cardNo: [{ required: true, message: '请输入卡号', trigger: 'blur' }],
                 // provice:[
@@ -1574,6 +1548,11 @@ let userId = '';
                 address: [{ required: true, maxlength: 50, message: '请输入详细地址', trigger: 'blur' }]
             }
         };
+    },
+    watch: {
+        data(newData) {
+            this.updateData(newData);
+        }
     },
     methods: {
         submitForm(formName) {
@@ -1611,6 +1590,49 @@ let userId = '';
                 }
             });
         },
+        updateData(newData) {
+            console.log('newData');
+            console.log(newData.birthday);
+            let brithYear = '';
+            let brithMonth = '';
+            let pindex = 0;
+            let cindex = 0;
+            let rindex = 0;
+            if (newData.name) {
+
+                if (newData.birthday) {
+                    let arr = newData.birthday.split('/');
+                    brithYear = arr[0] || '';
+                    brithMonth = arr[1] || '';
+                }
+
+                __WEBPACK_IMPORTED_MODULE_0__util__["a" /* default */].constData.maps.forEach((item, index) => {
+                    if (item.name === newData.province) {
+                        pindex = index;
+                        item.city.forEach((city, cityindex) => {
+                            if (city.name === newData.city) {
+                                cindex = cityindex;
+                                city.area.forEach((region, regionindex) => {
+                                    if (this.data.region === region) {
+                                        rindex = regionindex;
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+            this.addForm.pname = newData.name || '';
+            this.addForm.psex = newData.sex || '男';
+            this.addForm.pmobile = newData.mobile || '';
+            this.addForm.cardNo = newData.cardNo || '';
+            this.addForm.brithYear = brithYear;
+            this.addForm.brithMonth = brithMonth;
+            this.addForm.proviceIndex = pindex;
+            this.addForm.cityIndex = cindex;
+            this.addForm.regionIndex = rindex;
+            this.addForm.address = newData.address || '';
+        },
         cancelAdd() {},
         resetForm(formName) {
             this.$refs[formName].resetFields();
@@ -1619,6 +1641,7 @@ let userId = '';
     mounted() {
         userId = JSON.parse(localStorage.getItem(__WEBPACK_IMPORTED_MODULE_0__util__["a" /* default */].localKey.login)).id;
         this.$refs['addForm'].resetFields();
+        this.updateData(this.data);
     }
 });
 
@@ -1760,9 +1783,9 @@ var userInfo = {};
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
-    // baseUrl:"http://115.159.108.238:6688/api/"
+    baseUrl: "http://115.159.108.238:6688/api/"
     // baseUrl:"http://localhost:4500/api/"
-    baseUrl: "http://192.168.6.83:6688/api/"
+    // baseUrl:"http://192.168.6.83:6688/api/"
 
 });
 
@@ -5020,4 +5043,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[96]);
-//# sourceMappingURL=app.8e0ec69603c1e0a9427b.js.map
+//# sourceMappingURL=app.6b53c4a17cdf112930fe.js.map

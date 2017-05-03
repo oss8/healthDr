@@ -103,22 +103,15 @@
         props:{
             data:Object
         },
-        computed: {
-            addForm: function() {
-                let brithYear = '';
-                let brithMonth = '';
-                if (this.data.birthday) {
-                    let arr = this.data.birthday.split('/');
-                    brithYear = arr[0] || '';
-                    brithMonth = arr[1] || '';
-                }
-                return {
+        data () {
+            return {
+                addForm:{
                         pname:(this.data.name  || ''),
-                        psex:this.data.sex  || '0',
+                        psex:this.data.sex  || '男',
                         pmobile:this.data.mobile  || '',
                         cardType:'idCard',
-                        brithYear:brithYear,
-                        brithMonth:brithMonth,
+                        brithYear:'',
+                        brithMonth:'',
                         casetype:'htn',
                         cardNo:this.data.cardNo  || '',
                         proviceIndex:0,
@@ -127,27 +120,8 @@
                         address:this.data.address  || '',
                         pcardno:'',
                         pmedicalNo:''  
-                    }
-            }
-        },
-        data () {
-            return {
-                // addForm:{
-                //         pname:(this.data.name  || ''),
-                //         psex:this.data.sex  || '0',
-                //         pmobile:this.data.mobile  || '',
-                //         cardType:'idCard',
-                //         brithYear:'',
-                //         brithMonth:'',
-                //         casetype:'htn',
-                //         cardNo:this.data.cardNo  || '',
-                //         proviceIndex:0,
-                //         cityIndex:0,
-                //         regionIndex:0,
-                //         address:this.data.address  || '',
-                //         pcardno:'',
-                //         pmedicalNo:''  
-                //     },
+                    },
+                
                 constData:util.constData,
                 rules:{
                     pname:[
@@ -163,10 +137,10 @@
                         { required: true, message: '请选择随访类型', trigger: 'blur' }
                     ],
                     brithYear:[
-                        { required: true, message: '请选择出生年份', trigger: 'blur' }
+                        {type:'string', required: true, message: '请选择出生年份', trigger: 'blur' }
                     ],
                     brithMonth:[
-                        { required: true, message: '请选择出生月份', trigger: 'blur' }
+                        {type:'string', required: true, message: '请选择出生月份', trigger: 'blur' }
                     ],
                     casetype:[
                         { required: true, message: '请选择卡片类型', trigger: 'blur' }
@@ -187,6 +161,11 @@
                         { required: true,maxlength:50, message: '请输入详细地址', trigger: 'blur' }
                     ]
                 }
+            }
+        },
+        watch: {
+            data (newData) {
+               this.updateData(newData);
             }
         },
         methods:{
@@ -229,6 +208,51 @@
                 }
                 });
             },
+            updateData (newData) {
+                console.log('newData');
+                console.log(newData.birthday);
+                let brithYear = '';
+                let brithMonth = '';
+                let pindex = 0;
+                let cindex =0;
+                let rindex = 0;
+                if (newData.name) {
+                    
+                    if (newData.birthday) {
+                        let arr = newData.birthday.split('/');
+                        brithYear = arr[0] || '';
+                        brithMonth = arr[1] || '';
+                    }
+                    
+                    util.constData.maps.forEach((item,index) => {
+                        if (item.name === newData.province) {
+                                pindex = index;
+                                item.city.forEach((city,cityindex) => {
+                                    if(city.name === newData.city) {
+                                        cindex = cityindex;
+                                        city.area.forEach((region,regionindex) => {
+                                            if(this.data.region === region) {
+                                                rindex = regionindex;
+                                            }
+                                        })
+                                    }
+                                })
+                                
+                        }
+                    })
+                    
+                }
+                this.addForm.pname = newData.name  || '';
+                this.addForm.psex = newData.sex  || '男';
+                this.addForm.pmobile  = newData.mobile  || '';
+                this.addForm.cardNo = newData.cardNo  || '';
+                this.addForm.brithYear = brithYear;
+                this.addForm.brithMonth = brithMonth;
+                this.addForm.proviceIndex = pindex;
+                this.addForm.cityIndex = cindex;
+                this.addForm.regionIndex = rindex;
+                this.addForm.address = newData.address  || '';
+            },
             cancelAdd () {
 
             },
@@ -239,6 +263,7 @@
         mounted () {
             userId = JSON.parse(localStorage.getItem(util.localKey.login)).id ;
             this.$refs['addForm'].resetFields();
+            this.updateData(this.data);
         }
     };
 </script>
