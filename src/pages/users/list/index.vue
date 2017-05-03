@@ -31,15 +31,15 @@
                         </el-dropdown-menu>
                     </el-dropdown>
                 </div>
-                <table class="visit">
+                <table class="visit" >
                     <tr><td colspan="2">最近一次随访：{{patient.lastfollowuptime | timeFilter}}   </td></tr>
-                    <tr><td  width="80" align="center" class="key-red">{{ (patient.context.bloodHigh+'/'+patient.context.bloodLow) | bloodFilter}}</td><td>血压 {{patient.context.bloodHigh+'/'+patient.context.bloodLow}}  mmHg</td></tr>
+                    <tr v-if="patient.lastfollowupcontext"><td  width="80" align="center" class="key-red">{{ (patient.context.bloodHigh+'/'+patient.context.bloodLow) | bloodFilter}}</td><td>血压 {{patient.context.bloodHigh+'/'+patient.context.bloodLow}}  mmHg</td></tr>
                 </table>
             </el-card>
         </el-col>
     </el-row>
      <el-dialog custom-class="addContact" title="新建随访人资料" size="large" v-model="dialogFormVisible">
-        <dtdialog :data="editPatient"></dtdialog>
+        <dtdialog :data="editPatient" v-on:saveSuccess="saveSuccess"></dtdialog>
      </el-dialog>
 </div>
 
@@ -78,16 +78,17 @@
             },
             modifyPatient (patient) {
                 console.log(patient);
-                this.editPatient = patient;
+                this.editPatient = {};
                 this.dialogFormVisible = true;
             },
             patientClick (patient) {
                 this.$router.push({name:'detail',params:{selectPatient:patient,patients:this.patients}});
-            }
-        },
-        mounted () {
-            userInfo = JSON.parse(localStorage.getItem(util.localKey.login)) ;
-            if(userInfo.id.length > 0) {
+            },
+            saveSuccess () {
+                this.requestList();
+                this.dialogFormVisible = false;
+            },
+            requestList () {
                 let params = {doctorid:userInfo.id}
                 util.postData('Doctors/RequestPatientList',{RequestPatientList:params})
                 .then(data => {
@@ -103,8 +104,7 @@
                             }
                         catch(err)
                             {
-                                //在此处理错误
-                               
+
                             }
                             console.log(context);
                              item.context = context;
@@ -114,6 +114,12 @@
                     })
                     
                 })
+            }
+        },
+        mounted () {
+            userInfo = JSON.parse(localStorage.getItem(util.localKey.login)) ;
+            if(userInfo.id.length > 0) {
+                this.requestList()
             } else {
                 this.$router.replace({ name: 'login'})
             }

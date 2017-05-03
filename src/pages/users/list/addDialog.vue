@@ -103,15 +103,22 @@
         props:{
             data:Object
         },
-        data () {
-            return {
-                addForm:{
+        computed: {
+            addForm: function() {
+                let brithYear = '';
+                let brithMonth = '';
+                if (this.data.birthday) {
+                    let arr = this.data.birthday.split('/');
+                    brithYear = arr[0] || '';
+                    brithMonth = arr[1] || '';
+                }
+                return {
                         pname:(this.data.name  || ''),
                         psex:this.data.sex  || '0',
                         pmobile:this.data.mobile  || '',
                         cardType:'idCard',
-                        brithYear:'',
-                        brithMonth:'',
+                        brithYear:brithYear,
+                        brithMonth:brithMonth,
                         casetype:'htn',
                         cardNo:this.data.cardNo  || '',
                         proviceIndex:0,
@@ -120,7 +127,27 @@
                         address:this.data.address  || '',
                         pcardno:'',
                         pmedicalNo:''  
-                    },
+                    }
+            }
+        },
+        data () {
+            return {
+                // addForm:{
+                //         pname:(this.data.name  || ''),
+                //         psex:this.data.sex  || '0',
+                //         pmobile:this.data.mobile  || '',
+                //         cardType:'idCard',
+                //         brithYear:'',
+                //         brithMonth:'',
+                //         casetype:'htn',
+                //         cardNo:this.data.cardNo  || '',
+                //         proviceIndex:0,
+                //         cityIndex:0,
+                //         regionIndex:0,
+                //         address:this.data.address  || '',
+                //         pcardno:'',
+                //         pmedicalNo:''  
+                //     },
                 constData:util.constData,
                 rules:{
                     pname:[
@@ -168,8 +195,9 @@
                 if (valid) {
                     let params = this.addForm;
                     if(this.data.id) {
-                        params.patientid = this.data.id;
+                        params.patientid = this.data.id;                       
                     }
+                    params.birthday = params.brithYear + '/' + params.brithMonth;
                     params.doctorid = userId;
                     let provice = this.constData.maps[this.addForm.proviceIndex];
                     let city = provice.city[this.addForm.cityIndex];
@@ -181,14 +209,15 @@
                     } else {
                         params.pmedicalNo = params.cardNo;
                     }
+                    
                     util.postData('Doctors/AddPatient',{AddPatient:params})
                     .then(data => {
-                        if (this.data.id) {
-                            util.toast('添加成功');
-                        } else {
+                        if (params.patientid) {
                             util.toast('保存成功');
+                        } else {
+                            util.toast('添加成功');
                         }
-                        
+                        this.$emit('saveSuccess');
                         this.$refs[formName].resetFields();
                     })
                     .catch(err => {
@@ -209,6 +238,7 @@
         },
         mounted () {
             userId = JSON.parse(localStorage.getItem(util.localKey.login)).id ;
+            this.$refs['addForm'].resetFields();
         }
     };
 </script>

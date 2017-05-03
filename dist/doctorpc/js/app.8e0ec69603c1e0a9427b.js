@@ -1507,15 +1507,22 @@ let userId = '';
     props: {
         data: Object
     },
-    data() {
-        return {
-            addForm: {
+    computed: {
+        addForm: function () {
+            let brithYear = '';
+            let brithMonth = '';
+            if (this.data.birthday) {
+                let arr = this.data.birthday.split('/');
+                brithYear = arr[0] || '';
+                brithMonth = arr[1] || '';
+            }
+            return {
                 pname: this.data.name || '',
                 psex: this.data.sex || '0',
                 pmobile: this.data.mobile || '',
                 cardType: 'idCard',
-                brithYear: '',
-                brithMonth: '',
+                brithYear: brithYear,
+                brithMonth: brithMonth,
                 casetype: 'htn',
                 cardNo: this.data.cardNo || '',
                 proviceIndex: 0,
@@ -1524,7 +1531,27 @@ let userId = '';
                 address: this.data.address || '',
                 pcardno: '',
                 pmedicalNo: ''
-            },
+            };
+        }
+    },
+    data() {
+        return {
+            // addForm:{
+            //         pname:(this.data.name  || ''),
+            //         psex:this.data.sex  || '0',
+            //         pmobile:this.data.mobile  || '',
+            //         cardType:'idCard',
+            //         brithYear:'',
+            //         brithMonth:'',
+            //         casetype:'htn',
+            //         cardNo:this.data.cardNo  || '',
+            //         proviceIndex:0,
+            //         cityIndex:0,
+            //         regionIndex:0,
+            //         address:this.data.address  || '',
+            //         pcardno:'',
+            //         pmedicalNo:''  
+            //     },
             constData: __WEBPACK_IMPORTED_MODULE_0__util__["a" /* default */].constData,
             rules: {
                 pname: [{ required: true, maxlength: 20, message: '请输入姓名', trigger: 'blur' }],
@@ -1556,6 +1583,7 @@ let userId = '';
                     if (this.data.id) {
                         params.patientid = this.data.id;
                     }
+                    params.birthday = params.brithYear + '/' + params.brithMonth;
                     params.doctorid = userId;
                     let provice = this.constData.maps[this.addForm.proviceIndex];
                     let city = provice.city[this.addForm.cityIndex];
@@ -1567,13 +1595,14 @@ let userId = '';
                     } else {
                         params.pmedicalNo = params.cardNo;
                     }
-                    __WEBPACK_IMPORTED_MODULE_0__util__["a" /* default */].postData('Doctors/AddPatient', { AddPatient: params }).then(data => {
-                        if (this.data.id) {
-                            __WEBPACK_IMPORTED_MODULE_0__util__["a" /* default */].toast('添加成功');
-                        } else {
-                            __WEBPACK_IMPORTED_MODULE_0__util__["a" /* default */].toast('保存成功');
-                        }
 
+                    __WEBPACK_IMPORTED_MODULE_0__util__["a" /* default */].postData('Doctors/AddPatient', { AddPatient: params }).then(data => {
+                        if (params.patientid) {
+                            __WEBPACK_IMPORTED_MODULE_0__util__["a" /* default */].toast('保存成功');
+                        } else {
+                            __WEBPACK_IMPORTED_MODULE_0__util__["a" /* default */].toast('添加成功');
+                        }
+                        this.$emit('saveSuccess');
                         this.$refs[formName].resetFields();
                     }).catch(err => {});
                 } else {
@@ -1589,6 +1618,7 @@ let userId = '';
     },
     mounted() {
         userId = JSON.parse(localStorage.getItem(__WEBPACK_IMPORTED_MODULE_0__util__["a" /* default */].localKey.login)).id;
+        this.$refs['addForm'].resetFields();
     }
 });
 
@@ -1683,16 +1713,17 @@ var userInfo = {};
         },
         modifyPatient(patient) {
             console.log(patient);
-            this.editPatient = patient;
+            this.editPatient = {};
             this.dialogFormVisible = true;
         },
         patientClick(patient) {
             this.$router.push({ name: 'detail', params: { selectPatient: patient, patients: this.patients } });
-        }
-    },
-    mounted() {
-        userInfo = JSON.parse(localStorage.getItem(__WEBPACK_IMPORTED_MODULE_0__util__["a" /* default */].localKey.login));
-        if (userInfo.id.length > 0) {
+        },
+        saveSuccess() {
+            this.requestList();
+            this.dialogFormVisible = false;
+        },
+        requestList() {
             let params = { doctorid: userInfo.id };
             __WEBPACK_IMPORTED_MODULE_0__util__["a" /* default */].postData('Doctors/RequestPatientList', { RequestPatientList: params }).then(data => {
                 console.log(data.result);
@@ -1703,10 +1734,7 @@ var userInfo = {};
                         if (context.height && context.height != 0) {
                             context.bmi = (context.weight / (context.height * context.height / 10000)).toFixed(2);
                         }
-                    } catch (err) {
-                        //在此处理错误
-
-                    }
+                    } catch (err) {}
                     console.log(context);
                     item.context = context;
 
@@ -1714,6 +1742,12 @@ var userInfo = {};
                     return item;
                 });
             });
+        }
+    },
+    mounted() {
+        userInfo = JSON.parse(localStorage.getItem(__WEBPACK_IMPORTED_MODULE_0__util__["a" /* default */].localKey.login));
+        if (userInfo.id.length > 0) {
+            this.requestList();
         } else {
             this.$router.replace({ name: 'login' });
         }
@@ -1726,8 +1760,10 @@ var userInfo = {};
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
-    baseUrl: "http://115.159.108.238:6688/api/"
+    // baseUrl:"http://115.159.108.238:6688/api/"
     // baseUrl:"http://localhost:4500/api/"
+    baseUrl: "http://192.168.6.83:6688/api/"
+
 });
 
 /***/ }),
@@ -4156,7 +4192,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "tag tag-high"
   }, [_vm._v("高血压患者")])]), _vm._v(" "), _c('p', {
     staticClass: "info"
-  }, [_c('span', [_vm._v("1950年1月1日(67岁)")]), _c('span', [_vm._v("男")])]), _vm._v(" "), _c('p', {
+  }, [_c('span', [_vm._v(_vm._s(_vm.userInfo.birthday))]), _c('span', [_vm._v("男")])]), _vm._v(" "), _c('p', {
     staticClass: "tags"
   }, [_c('span', [_vm._v("社保卡号：" + _vm._s(_vm.userInfo.name))]), _c('span', [_vm._v("联系电话：" + _vm._s(_vm.userInfo.mobile))])]), _vm._v(" "), _c('p', [_vm._v("居住地址：" + _vm._s(_vm.userInfo.province) + "省 " + _vm._s(_vm.userInfo.city) + "市 " + _vm._s(_vm.userInfo.region + ' ' + _vm.userInfo.address) + " ")])])]), _vm._v(" "), _c('div', {
     staticClass: "doct-button"
@@ -4444,13 +4480,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "colspan": "2"
       }
-    }, [_vm._v("最近一次随访：" + _vm._s(_vm._f("timeFilter")(patient.lastfollowuptime)) + "   ")])]), _vm._v(" "), _c('tr', [_c('td', {
+    }, [_vm._v("最近一次随访：" + _vm._s(_vm._f("timeFilter")(patient.lastfollowuptime)) + "   ")])]), _vm._v(" "), (patient.lastfollowupcontext) ? _c('tr', [_c('td', {
       staticClass: "key-red",
       attrs: {
         "width": "80",
         "align": "center"
       }
-    }, [_vm._v(_vm._s(_vm._f("bloodFilter")((patient.context.bloodHigh + '/' + patient.context.bloodLow))))]), _c('td', [_vm._v("血压 " + _vm._s(patient.context.bloodHigh + '/' + patient.context.bloodLow) + "  mmHg")])])])])], 1)
+    }, [_vm._v(_vm._s(_vm._f("bloodFilter")((patient.context.bloodHigh + '/' + patient.context.bloodLow))))]), _c('td', [_vm._v("血压 " + _vm._s(patient.context.bloodHigh + '/' + patient.context.bloodLow) + "  mmHg")])]) : _vm._e()])])], 1)
   })), _vm._v(" "), _c('el-dialog', {
     attrs: {
       "custom-class": "addContact",
@@ -4467,6 +4503,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('dtdialog', {
     attrs: {
       "data": _vm.editPatient
+    },
+    on: {
+      "saveSuccess": _vm.saveSuccess
     }
   })], 1)], 1)
 },staticRenderFns: []}
@@ -4885,7 +4924,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "header"
   }, [_c('el-col', {
     attrs: {
-      "span": 16
+      "span": 13
     }
   }, [_c('el-breadcrumb', {
     attrs: {
@@ -4905,7 +4944,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("详情")])], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
-      "span": 4
+      "span": 7
     }
   }, [_c('div', {
     staticClass: "grid-content bg-purple"
@@ -4981,4 +5020,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[96]);
-//# sourceMappingURL=app.894410e0a630c7ba008e.js.map
+//# sourceMappingURL=app.8e0ec69603c1e0a9427b.js.map

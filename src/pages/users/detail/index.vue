@@ -6,7 +6,7 @@
                     <dt><i class="icon icon-user"><img src="../../../assets/logo.jpg" /></i></dt>
                     <dd>
                         <p><span class="name">{{userInfo.name}}</span><span class="tag tag-high">高血压患者</span></p>
-                        <p class="info"><span>1950年1月1日(67岁)</span><span>男</span></p>
+                        <p class="info"><span>{{userInfo.birthday}}</span><span>男</span></p>
                         <p class="tags"><span>社保卡号：{{userInfo.name}}</span><span>联系电话：{{userInfo.mobile}}</span></p>
                         <p>居住地址：{{userInfo.province}}省 {{userInfo.city}}市 {{userInfo.region+' '+userInfo.address}} </p>
                     </dd>
