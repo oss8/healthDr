@@ -1783,8 +1783,8 @@ var userInfo = {};
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
-    baseUrl: "http://115.159.108.238:6688/api/"
-    // baseUrl:"http://localhost:4500/api/"
+    // baseUrl:"http://115.159.108.238:6688/api/"
+    baseUrl: "http://localhost:6688/api/"
     // baseUrl:"http://192.168.6.83:6688/api/"
 
 });
@@ -5043,4 +5043,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[96]);
-//# sourceMappingURL=app.6b53c4a17cdf112930fe.js.map
+//# sourceMappingURL=app.3a1c6ddceb7c9925d1bb.js.map
