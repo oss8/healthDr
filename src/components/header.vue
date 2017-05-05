@@ -25,6 +25,7 @@
     //  @import "../style/common.scss";
 </style>
 <script>
+import util from '@/util'
     export  default {
         replace: true,
         props: {name:String},
@@ -33,7 +34,7 @@
         },
         methods:{
             exit() {
-                localStorage.removeItem('eshine_channel');
+                localStorage.removeItem(util.localKey.login);
                 this.$router.replace({
                                 name: 'login'
                             })

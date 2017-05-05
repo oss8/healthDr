@@ -41,7 +41,7 @@
         mounted () {
             userInfo = JSON.parse(localStorage.getItem(util.localKey.login));
             console.log(userInfo);
-            if(userInfo.id.length == 0) {
+            if(!userInfo) {
                 this.$router.replace({
                                 name: 'login'
                         })

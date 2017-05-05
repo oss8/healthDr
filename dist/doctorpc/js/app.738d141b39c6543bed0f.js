@@ -493,6 +493,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util__ = __webpack_require__(5);
 //
 //
 //
@@ -520,6 +521,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
     replace: true,
     props: { name: String },
@@ -528,7 +530,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         exit() {
-            localStorage.removeItem('eshine_channel');
+            localStorage.removeItem(__WEBPACK_IMPORTED_MODULE_0__util__["a" /* default */].localKey.login);
             this.$router.replace({
                 name: 'login'
             });
@@ -677,7 +679,7 @@ var userInfo = {};
     mounted() {
         userInfo = JSON.parse(localStorage.getItem(__WEBPACK_IMPORTED_MODULE_1__util__["a" /* default */].localKey.login));
         console.log(userInfo);
-        if (userInfo.id.length == 0) {
+        if (!userInfo) {
             this.$router.replace({
                 name: 'login'
             });
@@ -5043,4 +5045,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[96]);
-//# sourceMappingURL=app.3a1c6ddceb7c9925d1bb.js.map
+//# sourceMappingURL=app.738d141b39c6543bed0f.js.map
