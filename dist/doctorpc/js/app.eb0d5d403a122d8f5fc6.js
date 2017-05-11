@@ -1786,7 +1786,7 @@ var userInfo = {};
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
     // baseUrl:"http://115.159.108.238:6688/api/"
-    baseUrl: "http://localhost:6688/api/"
+    baseUrl: "http://106.14.159.108:6688/api/"
     // baseUrl:"http://192.168.6.83:6688/api/"
 
 });
@@ -5045,4 +5045,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[96]);
-//# sourceMappingURL=app.738d141b39c6543bed0f.js.map
+//# sourceMappingURL=app.eb0d5d403a122d8f5fc6.js.map
