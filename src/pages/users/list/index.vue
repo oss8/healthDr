@@ -82,6 +82,7 @@
                 this.dialogFormVisible = true;
             },
             patientClick (patient) {
+                console.log(patient)
                 this.$router.push({name:'detail',params:{selectPatient:patient,patients:this.patients}});
             },
             saveSuccess () {

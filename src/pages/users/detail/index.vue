@@ -149,7 +149,7 @@
             patientClick (patient) {
                 console.log(patient);
                 this.userInfo = patient;
-                if(!this.userInfo.context.thisDate){
+                if( patient.context == null){                   
                     this.editing = true;
                 } else {
                     this.editing = false;

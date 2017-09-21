@@ -1376,7 +1376,7 @@ var userInfo = {};
         patientClick(patient) {
             console.log(patient);
             this.userInfo = patient;
-            if (!this.userInfo.context.thisDate) {
+            if (patient.context == null) {
                 this.editing = true;
             } else {
                 this.editing = false;
@@ -1743,6 +1743,7 @@ var userInfo = {};
             this.dialogFormVisible = true;
         },
         patientClick(patient) {
+            console.log(patient);
             this.$router.push({ name: 'detail', params: { selectPatient: patient, patients: this.patients } });
         },
         saveSuccess() {
@@ -5049,4 +5050,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[97]);
-//# sourceMappingURL=app.2e1792bc843ead06431a.js.map
+//# sourceMappingURL=app.11277011ffbbeb24472d.js.map
