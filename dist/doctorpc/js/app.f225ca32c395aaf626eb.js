@@ -4184,7 +4184,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "footer"
-  }, [_vm._v("\n    ©2016-2017 杭州当堂信息技术有限公司 | 版权所有"), _c('br'), _vm._v("浙ICP备15007132号-1\n    ")])
+  }, [_vm._v("\n    ©2016-2017 杭州曼康信息技术有限公司 | 版权所有"), _c('br'), _vm._v("浙ICP备15007132号-1\n    ")])
 }]}
 
 /***/ }),
@@ -4600,7 +4600,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "footer"
-  }, [_vm._v("\n    ©2016-2017 杭州阿里巴巴技术有限公司 | 版权所有"), _c('br'), _vm._v("浙ICP备15007132号-1\n    ")])
+  }, [_vm._v("\n    ©2016-2017 杭州曼康信息技术有限公司 | 版权所有"), _c('br'), _vm._v("浙ICP备15007132号-1\n    ")])
 }]}
 
 /***/ }),
@@ -5045,9 +5045,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "footer"
-  }, [_vm._v("\n    ©2016-2017 杭州当堂信息技术有限公司 | 版权所有"), _c('br'), _vm._v("浙ICP备15007132号-1\n    ")])
+  }, [_vm._v("\n    ©2016-2017 杭州曼康信息技术有限公司 | 版权所有"), _c('br'), _vm._v("浙ICP备15007132号-1\n    ")])
 }]}
 
 /***/ })
 ],[97]);
-//# sourceMappingURL=app.11277011ffbbeb24472d.js.map
+//# sourceMappingURL=app.f225ca32c395aaf626eb.js.map
